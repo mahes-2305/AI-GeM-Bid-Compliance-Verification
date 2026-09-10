@@ -1,706 +1,558 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
 /* =========================================================
-   GLOBAL
-========================================================= */
-
-* {
-  box-sizing: border-box;
-}
+   NEXVERIFY AI - LOGIN PAGE
+   ========================================================= */
 
 .login-page {
   position: relative;
   width: 100%;
   min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
 
+  background-image: url("/src/assets/login-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
     "Segoe UI",
-    Roboto,
-    Helvetica,
+    Inter,
     Arial,
     sans-serif;
-
-  color: #123f7b;
-
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(90, 140, 255, 0.5),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 88% 22%,
-      rgba(185, 110, 255, 0.4),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 53% 74%,
-      rgba(255, 170, 140, 0.42),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #cfe0ff 0%,
-      #dbe7ff 26%,
-      #f1e8ff 50%,
-      #ffe3ec 74%,
-      #d6e2ff 100%
-    );
 }
 
 
 /* =========================================================
    BACKGROUND
-========================================================= */
+   ========================================================= */
 
-.background {
+.login-background-overlay {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.01)
+    );
+
   pointer-events: none;
 }
 
 
-/* Soft light sources */
-
-.ambient {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.55;
-}
-
-.ambient-one {
-  width: 420px;
-  height: 420px;
-
-  top: -180px;
-  left: 60px;
-
-  background: rgba(80, 135, 255, 0.48);
-}
-
-.ambient-two {
-  width: 460px;
-  height: 460px;
-
-  right: -140px;
-  top: 20px;
-
-  background: rgba(180, 110, 255, 0.38);
-}
-
-.ambient-three {
-  width: 420px;
-  height: 420px;
-
-  left: 38%;
-  bottom: -220px;
-
-  background: rgba(255, 165, 130, 0.4);
-}
-
-.ambient-four {
-  width: 330px;
-  height: 330px;
-
-  right: 26%;
-  top: 36%;
-
-  background: rgba(110, 155, 255, 0.24);
-}
-
-
 /* =========================================================
-   TOP LEFT ORBITS
-========================================================= */
+   MAIN CONTENT
+   ========================================================= */
 
-.orbit-container {
-  position: absolute;
+.login-content {
+  position: relative;
+  z-index: 2;
 
-  width: 500px;
-  height: 500px;
-
-  left: -235px;
-  top: -265px;
-}
-
-.orbit {
-  position: absolute;
-
-  border: 1px solid rgba(255, 255, 255, 0.8);
-
-  border-radius: 50%;
-}
-
-.orbit-one {
-  width: 500px;
-  height: 500px;
-}
-
-.orbit-two {
-  width: 430px;
-  height: 430px;
-
-  left: 35px;
-  top: 35px;
-}
-
-.orbit-three {
-  width: 350px;
-  height: 350px;
-
-  left: 75px;
-  top: 75px;
-}
-
-.orbit-dot {
-  position: absolute;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      #ffffff 0%,
-      #dce7ff 20%,
-      #9bb8ff 55%,
-      #7d72ec 100%
-    );
-
-  box-shadow:
-    0 15px 35px rgba(76, 108, 210, 0.25);
-}
-
-.orbit-dot-one {
-  width: 78px;
-  height: 78px;
-
-  left: 285px;
-  top: 205px;
-}
-
-.orbit-dot-two {
-  width: 46px;
-  height: 46px;
-
-  left: 340px;
-  top: 320px;
-}
-
-
-/* =========================================================
-   TOP RIGHT ARCHITECTURAL DESIGN
-========================================================= */
-
-.vertical-design {
-  position: absolute;
-
-  top: -10px;
-  right: 90px;
-
-  display: flex;
-
-  gap: 12px;
-
-  opacity: 0.42;
-}
-
-.vertical-design span {
-  width: 32px;
-  height: 185px;
-
-  border-left: 1px solid rgba(112, 142, 225, 0.25);
-  border-right: 1px solid rgba(112, 142, 225, 0.15);
-
-  background: rgba(160, 180, 245, 0.06);
-}
-
-
-/* =========================================================
-   DOT GRID
-========================================================= */
-
-.dot-grid {
-  position: absolute;
-
-  right: 28px;
-  top: 38px;
-
-  width: 110px;
-
-  display: grid;
-
-  grid-template-columns: repeat(7, 5px);
-
-  gap: 10px;
-
-  opacity: 0.5;
-}
-
-.dot-grid span {
-  width: 4px;
-  height: 4px;
-
-  border-radius: 50%;
-
-  background: #789cf0;
-}
-
-
-/* =========================================================
-   DIAGONAL LIGHT STREAK
-========================================================= */
-
-.light-streak {
-  position: absolute;
-
-  width: 140%;
-  height: 2px;
-
-  top: 71%;
-  left: -20%;
-
-  border-radius: 999px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(192, 132, 252, 0.85),
-    rgba(255, 255, 255, 1),
-    rgba(129, 140, 248, 0.85),
-    transparent
-  );
-
-  filter: blur(0.5px);
-  opacity: 0.9;
-  transform: rotate(-7deg);
-}
-
-
-/* =========================================================
-   WAVES
-========================================================= */
-
-.wave-area {
-  position: absolute;
-
-  width: 100%;
-  height: 430px;
-
-  left: 0;
-  bottom: -30px;
-}
-
-.waves {
   width: 100%;
   height: 100%;
-}
 
-.wave {
-  fill: none;
+  display: grid;
+  grid-template-columns: 62% 38%;
 
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.wave-back {
-  stroke: rgba(110, 155, 255, 0.42);
-  stroke-width: 55;
-}
-
-.wave-middle {
-  stroke: rgba(255, 255, 255, 0.85);
-  stroke-width: 32;
-}
-
-.wave-purple {
-  stroke: url(#waveFlow);
-  opacity: 0.8;
-  stroke-width: 20;
-}
-
-.wave-front {
-  stroke: url(#waveFlow);
-  opacity: 0.55;
-  stroke-width: 50;
-}
-
-.wave-highlight {
-  stroke: rgba(255, 255, 255, 0.95);
-  stroke-width: 5;
+  align-items: center;
 }
 
 
 /* =========================================================
-   BRAND SECTION
-========================================================= */
+   LEFT BRANDING
+   ========================================================= */
 
-.brand-section {
-  position: relative;
-  z-index: 5;
+.branding-section {
+  width: 100%;
+  height: 100%;
 
-  width: 55%;
+  display: flex;
+  flex-direction: column;
 
-  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding-left: 4vw;
+  padding-bottom: 1vh;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.nexverify-logo {
+  width: min(350px, 34vw);
+  height: auto;
+
+  object-fit: contain;
+
+  margin-bottom: 26px;
+
+  filter:
+    drop-shadow(0 10px 20px rgba(20, 70, 130, 0.15));
+}
+
+
+/* =========================================================
+   VERIFICATION PLATFORM
+   ========================================================= */
+
+.verification-title {
+  color: #17577d;
+
+  font-size: clamp(20px, 1.8vw, 29px);
+  font-weight: 800;
+
+  letter-spacing: 8px;
+
+  text-shadow:
+    0 2px 5px rgba(255, 255, 255, 0.85),
+    0 3px 10px rgba(20, 70, 110, 0.18);
+
+  margin-top: 2px;
+}
+
+
+/* =========================================================
+   TITLE LINE
+   ========================================================= */
+
+.title-line {
+  width: 78px;
+  height: 4px;
+
+  margin-top: 24px;
+  margin-bottom: 22px;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 2px 10px rgba(255, 255, 255, 0.8);
+}
+
+
+/* =========================================================
+   SECURITY ICON
+   ========================================================= */
+
+.security-icon {
+  width: 54px;
+  height: 54px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 50px;
-}
+  color: #397cf4;
 
-.brand-content {
-  width: 650px;
-
-  margin-top: -35px;
-
-  text-align: center;
-}
-
-
-/* =========================================================
-   LOGO (image-based)
-========================================================= */
-
-.brand-logo-img {
-  display: block;
-  width: min(340px, 80%);
-  margin: 0 auto 10px;
-  filter: drop-shadow(0 20px 40px rgba(89, 78, 235, 0.28));
-}
-
-.brand-subtitle {
-  margin-top: 22px;
-
-  color: #6684b1;
-
-  font-size: 17px;
-
-  font-weight: 650;
-
-  letter-spacing: 7px;
-}
-
-.brand-divider {
-  width: 90px;
-  height: 1px;
-
-  margin: 43px auto 28px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(84, 127, 209, 0.4),
-      transparent
-    );
-}
-
-
-/* =========================================================
-   SECURITY TEXT
-========================================================= */
-
-.security-section {
-  text-align: center;
-}
-
-.security-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.security-section .icon {
-  display: block;
-  width: 47px;
-  height: 47px;
-
-  color: #536cff;
-
-  margin: 0 auto 17px;
+  margin-bottom: 13px;
 
   filter:
-    drop-shadow(
-      0 8px 15px rgba(82, 105, 245, 0.25)
-    );
+    drop-shadow(0 4px 7px rgba(40, 100, 220, 0.25));
 }
 
-.security-section h3 {
+.security-icon svg {
+  width: 52px;
+  height: 52px;
+}
+
+
+/* =========================================================
+   BRAND HEADING
+   ========================================================= */
+
+.brand-heading {
   margin: 0;
 
-  color: #123f7b;
+  color: #063e68;
 
-  font-size: 21px;
+  font-size: clamp(23px, 2vw, 31px);
+  font-weight: 800;
 
-  font-weight: 720;
-}
+  letter-spacing: 0.2px;
 
-.security-section p {
-  margin-top: 10px;
-
-  color: #6785b1;
-
-  font-size: 16px;
+  text-shadow:
+    0 2px 4px rgba(255, 255, 255, 0.95),
+    0 3px 8px rgba(20, 60, 100, 0.18);
 }
 
 
 /* =========================================================
-   LOGIN SECTION
-========================================================= */
+   BRAND DESCRIPTION
+   ========================================================= */
 
-.login-section {
-  position: absolute;
+.brand-description {
+  margin-top: 12px;
+  margin-bottom: 0;
 
-  z-index: 10;
+  color: #17618d;
 
-  right: 4.5%;
+  font-size: clamp(16px, 1.3vw, 21px);
+  font-weight: 700;
 
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: min(590px, 37vw);
+  text-shadow:
+    0 2px 4px rgba(255, 255, 255, 0.95);
 }
 
 
 /* =========================================================
-   GLASS LOGIN CARD
-========================================================= */
+   LOGIN CARD
+   ========================================================= */
 
 .login-card {
   position: relative;
 
-  padding: 82px 78px 55px;
+  width: min(570px, 88%);
+  min-height: 670px;
 
-  border-radius: 28px;
+  margin-right: 5vw;
 
-  /*
-    IMPORTANT:
-    This creates the glass effect.
-  */
+  padding: 28px 45px 25px;
+
+  border-radius: 25px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.72);
 
   background:
     linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.60),
-      rgba(255, 255, 255, 0.34)
+      rgba(255, 255, 255, 0.47),
+      rgba(225, 230, 255, 0.32),
+      rgba(242, 220, 255, 0.40)
     );
-
-  border: 1px solid rgba(255, 255, 255, 0.78);
 
   box-shadow:
-    0 30px 80px rgba(75, 102, 170, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.35);
+    0 25px 60px rgba(49, 88, 150, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
 
-  backdrop-filter: blur(30px) saturate(145%);
-  -webkit-backdrop-filter: blur(30px) saturate(145%);
-}
+  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
 
+  justify-self: end;
 
-/* Glass highlight */
-
-.login-card::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  border-radius: inherit;
-
-  background:
-    linear-gradient(
-      125deg,
-      rgba(255,255,255,0.30),
-      transparent 35%,
-      rgba(255,255,255,0.12)
-    );
-
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
 
 
 /* =========================================================
    LANGUAGE
-========================================================= */
+   ========================================================= */
 
-.language-selector {
-  position: absolute;
+.language-wrapper {
+  position: relative;
 
-  right: 25px;
-  top: 24px;
+  align-self: flex-end;
 
+  margin-bottom: 31px;
+}
+
+.language-button {
   height: 43px;
 
+  min-width: 110px;
+
+  padding:
+    0
+    14px;
+
   display: flex;
-
   align-items: center;
+  justify-content: center;
 
-  gap: 9px;
+  gap: 8px;
 
-  padding: 0 14px;
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.85);
 
-  border-radius: 24px;
-
-  border: 1px solid rgba(111, 139, 207, 0.25);
-
-  color: #164986;
+  border-radius: 25px;
 
   background:
-    rgba(255, 255, 255, 0.35);
+    rgba(255, 255, 255, 0.53);
 
-  font-size: 14px;
+  color: #095c89;
 
-  font-weight: 650;
-
-  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
 
   cursor: pointer;
 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 15px rgba(30, 90, 140, 0.10);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.language-button:hover {
+  background:
+    rgba(255, 255, 255, 0.72);
+
+  transform: translateY(-1px);
 }
 
 .globe-icon {
-  width: 17px;
-  height: 17px;
+  width: 19px;
+  height: 19px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.chevron {
-  width: 15px;
-  height: 15px;
+.globe-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.selected-language {
+  min-width: 27px;
+  text-align: center;
+}
+
+.language-arrow {
+  font-size: 15px;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.language-arrow-open {
+  transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   LANGUAGE MENU
+   ========================================================= */
+
+.language-menu {
+  position: absolute;
+
+  top: calc(100% + 8px);
+  right: 0;
+
+  min-width: 120px;
+
+  padding: 7px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.75);
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, 0.90);
+
+  box-shadow:
+    0 15px 35px rgba(35, 70, 120, 0.20);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  z-index: 50;
+}
+
+.language-option {
+  width: 100%;
+
+  padding:
+    10px
+    12px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: transparent;
+
+  color: #164e73;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.language-option:hover {
+  background:
+    rgba(50, 150, 230, 0.10);
+}
+
+.language-option-active {
+  background:
+    rgba(50, 150, 230, 0.13);
+
+  color: #087bc1;
 }
 
 
 /* =========================================================
    FORM
-========================================================= */
+   ========================================================= */
+
+.login-form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
 
 .form-group {
-  margin-bottom: 28px;
+  width: 100%;
+
+  margin-bottom: 24px;
 }
 
 .form-group label {
   display: block;
 
-  margin-bottom: 11px;
+  margin-bottom: 10px;
 
-  color: #123f7b;
+  color: #073f6e;
 
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 800;
 
-  font-weight: 720;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.65);
 }
 
 
 /* =========================================================
-   GLASS INPUTS
-========================================================= */
+   INPUT WRAPPER
+   ========================================================= */
 
 .input-wrapper {
   position: relative;
 
-  height: 61px;
+  width: 100%;
+  height: 59px;
 
   display: flex;
-
   align-items: center;
 
-  border-radius: 13px;
+  border:
+    1px solid
+    rgba(135, 178, 220, 0.55);
 
-  /*
-    This is the transparent glass input.
-  */
+  border-radius: 14px;
 
   background:
-    rgba(255, 255, 255, 0.27);
-
-  border: 1px solid rgba(91, 126, 207, 0.25);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.7),
-    0 5px 20px rgba(91, 123, 190, 0.04);
-
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+    rgba(255, 255, 255, 0.48);
 
   transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .input-wrapper:focus-within {
-  border-color: rgba(49, 113, 232, 0.45);
+  border-color: #269ce8;
 
   background:
-    rgba(255, 255, 255, 0.38);
+    rgba(255, 255, 255, 0.58);
 
   box-shadow:
-    0 0 0 4px rgba(69, 122, 238, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    0 0 0 3px rgba(38, 156, 232, 0.10);
 }
 
-.field-icon {
-  width: 22px;
-  height: 22px;
+.input-wrapper.input-error {
+  border:
+    1.5px solid
+    #ff6d83;
+
+  background:
+    rgba(255, 245, 248, 0.50);
+}
+
+
+/* =========================================================
+   INPUT ICON
+   ========================================================= */
+
+.input-icon {
+  width: 25px;
+  height: 25px;
 
   margin-left: 17px;
 
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  color: #155096;
+  color: #14659c;
+
+  flex-shrink: 0;
 }
+
+.input-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
 
 .input-wrapper input {
   width: 100%;
   height: 100%;
-  flex: 1;
-  min-width: 0;
 
-  padding: 0 16px;
+  padding:
+    0
+    15px;
 
   border: none;
   outline: none;
 
   background: transparent;
 
-  color: #174b88;
+  color: #124f7e;
 
-  font-size: 15px;
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
 
-  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .input-wrapper input::placeholder {
-  color: #8ca7d1;
-
-  opacity: 1;
+  color: #668baa;
 }
 
 
 /* =========================================================
-   PASSWORD
-========================================================= */
-
-.password-group {
-  margin-bottom: 24px;
-}
+   PASSWORD TOGGLE
+   ========================================================= */
 
 .password-toggle {
-  width: 48px;
+  width: 45px;
   height: 100%;
 
-  display: flex;
+  margin-right: 3px;
 
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -708,50 +560,275 @@
 
   background: transparent;
 
-  color: #19549a;
+  color: #1c77a8;
 
   cursor: pointer;
 }
 
-.eye-icon {
-  width: 21px;
-  height: 21px;
+.password-toggle svg {
+  width: 22px;
+  height: 22px;
 }
 
 
 /* =========================================================
-   OPTIONS
-========================================================= */
+   ERROR
+   ========================================================= */
 
-.options-row {
-  display: flex;
+.error-message {
+  margin-top: 7px;
+  padding-left: 3px;
 
-  align-items: center;
+  color: #e83255;
 
-  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
 
-  margin-bottom: 29px;
-
-  color: #174b88;
-
-  font-size: 14px;
-
-  font-weight: 600;
+  line-height: 1.35;
 }
 
-.remember {
-  position: relative;
 
-  display: flex;
+/* =========================================================
+   CAPTCHA
+   ========================================================= */
+
+.captcha-group {
+  width: 100%;
+
+  margin-bottom: 22px;
+}
+
+.captcha-group > label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #073f6e;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.captcha-row {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    128px
+    80px
+    1fr;
 
   align-items: center;
 
   gap: 10px;
+}
+
+.captcha-display {
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(135, 178, 220, 0.55);
+
+  border-radius: 13px;
+
+  background:
+    repeating-linear-gradient(
+      -15deg,
+      rgba(255, 255, 255, 0.80) 0px,
+      rgba(255, 255, 255, 0.80) 2px,
+      rgba(225, 235, 245, 0.75) 3px,
+      rgba(255, 255, 255, 0.80) 5px
+    );
+
+  color: #173c55;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 19px;
+  font-weight: 800;
+
+  letter-spacing: 4px;
+
+  text-decoration: line-through;
+
+  user-select: none;
+}
+
+.captcha-refresh {
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #0788d5;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 800;
 
   cursor: pointer;
 }
 
-.remember input {
+.captcha-refresh:hover {
+  text-decoration: underline;
+}
+
+.captcha-refresh:first-letter {
+  font-size: 19px;
+}
+
+.captcha-input-wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+
+  border:
+    1px solid
+    rgba(135, 178, 220, 0.55);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.43);
+
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.captcha-input-wrapper:focus-within {
+  border-color: #269ce8;
+
+  background:
+    rgba(255, 255, 255, 0.54);
+
+  box-shadow:
+    0 0 0 3px rgba(38, 156, 232, 0.10);
+}
+
+.captcha-input-wrapper.captcha-input-error {
+  border:
+    1.5px solid
+    #ff6d83;
+
+  background:
+    rgba(255, 245, 248, 0.48);
+}
+
+.captcha-icon {
+  width: 24px;
+  height: 24px;
+
+  margin-left: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #14659c;
+
+  flex-shrink: 0;
+}
+
+.captcha-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.captcha-input-wrapper input {
+  width: 100%;
+  height: 100%;
+
+  padding:
+    0
+    12px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #124f7e;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.captcha-input-wrapper input::placeholder {
+  color: #668baa;
+}
+
+.captcha-error {
+  margin-top: 7px;
+  padding-left: 3px;
+
+  color: #e83255;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1.35;
+}
+
+
+/* =========================================================
+   REMEMBER + FORGOT
+   ========================================================= */
+
+.login-options {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 21px;
+}
+
+.remember-option {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: #164f73;
+
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+.remember-option input {
   position: absolute;
 
   opacity: 0;
@@ -763,44 +840,39 @@
   width: 20px;
   height: 20px;
 
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1.5px solid
+    rgba(92, 150, 200, 0.65);
+
   border-radius: 5px;
 
-  border: 1.5px solid #8eafe0;
-
   background:
-    rgba(255, 255, 255, 0.28);
-
-  transition: 0.2s ease;
+    rgba(255, 255, 255, 0.45);
 }
 
-.remember input:checked + .custom-checkbox {
-  border-color: #3678ed;
-
+.remember-option input:checked + .custom-checkbox {
   background:
     linear-gradient(
       135deg,
-      #1889ed,
-      #8732e9
+      #0da8dd,
+      #7730e8
     );
+
+  border-color: transparent;
 }
 
-.remember input:checked + .custom-checkbox::after {
-  content: "";
+.remember-option input:checked + .custom-checkbox::after {
+  content: "✓";
 
-  display: block;
+  color: white;
 
-  width: 5px;
-  height: 9px;
-
-  margin: 3px auto;
-
-  border:
-    solid white;
-
-  border-width:
-    0 2px 2px 0;
-
-  transform: rotate(45deg);
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .forgot-password {
@@ -808,13 +880,10 @@
 
   background: transparent;
 
-  color: #1970e8;
+  color: #0788d5;
 
   font-size: 14px;
-
-  font-weight: 650;
-
-  font-family: inherit;
+  font-weight: 800;
 
   cursor: pointer;
 }
@@ -826,76 +895,44 @@
 
 /* =========================================================
    SIGN IN BUTTON
-========================================================= */
+   ========================================================= */
 
 .sign-in-button {
-  position: relative;
-
   width: 100%;
-  height: 61px;
+  height: 60px;
 
   border: none;
 
-  border-radius: 13px;
-
-  color: white;
+  border-radius: 14px;
 
   background:
     linear-gradient(
-      100deg,
-      #0c91ed 0%,
-      #2779ed 38%,
-      #7441ef 72%,
-      #9a2be9 100%
+      90deg,
+      #0ca7dc 0%,
+      #367ee7 48%,
+      #9013df 100%
     );
 
-  font-family: inherit;
+  color: white;
 
-  font-size: 17px;
-
-  font-weight: 720;
+  font-size: 18px;
+  font-weight: 800;
 
   cursor: pointer;
 
-  overflow: hidden;
-
   box-shadow:
-    0 15px 30px rgba(74, 82, 224, 0.20);
+    0 8px 22px rgba(54, 104, 220, 0.20);
 
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
-.sign-in-button::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    linear-gradient(
-      120deg,
-      transparent 20%,
-      rgba(255,255,255,0.18) 50%,
-      transparent 80%
-    );
-
-  transform: translateX(-100%);
-
-  transition: transform 0.6s ease;
-}
-
-.sign-in-button:hover::before {
-  transform: translateX(100%);
-}
-
 .sign-in-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 
   box-shadow:
-    0 20px 38px rgba(74, 82, 224, 0.27);
+    0 12px 28px rgba(54, 104, 220, 0.28);
 }
 
 .sign-in-button:active {
@@ -905,285 +942,283 @@
 
 /* =========================================================
    DIVIDER
-========================================================= */
+   ========================================================= */
 
 .divider {
+  width: 100%;
+
   display: flex;
 
   align-items: center;
 
-  gap: 16px;
+  gap: 12px;
 
-  margin: 29px 0;
+  margin:
+    23px
+    0;
 }
 
-.divider span {
+.divider-line {
   flex: 1;
 
   height: 1px;
 
   background:
-    rgba(83, 120, 189, 0.22);
+    rgba(120, 155, 190, 0.35);
 }
 
-.divider strong {
-  color: #8199bf;
+.divider span {
+  color: #6d8fa7;
 
-  font-size: 14px;
-
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 
 /* =========================================================
    SSO BUTTON
-========================================================= */
+   ========================================================= */
 
 .sso-button {
   width: 100%;
-  height: 59px;
+  height: 58px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
-
-  border-radius: 13px;
+  gap: 10px;
 
   border:
-    1px solid rgba(92, 129, 205, 0.25);
+    1px solid
+    rgba(255, 255, 255, 0.80);
+
+  border-radius: 14px;
 
   background:
-    rgba(255, 255, 255, 0.22);
+    rgba(255, 255, 255, 0.38);
 
-  color: #154983;
-
-  font-family: inherit;
+  color: #09577f;
 
   font-size: 16px;
-
-  font-weight: 680;
+  font-weight: 800;
 
   cursor: pointer;
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 
   transition:
     background 0.2s ease,
     transform 0.2s ease;
 }
 
-.sso-button .icon {
-  width: 22px;
-  height: 22px;
-}
-
 .sso-button:hover {
   background:
-    rgba(255, 255, 255, 0.38);
+    rgba(255, 255, 255, 0.58);
 
   transform: translateY(-1px);
 }
 
+.sso-icon {
+  width: 22px;
+  height: 22px;
 
-/* =========================================================
-   SUPPORT
-========================================================= */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.support {
-  margin-top: 39px;
-
-  text-align: center;
-
-  color: #6784ae;
-
-  font-size: 14px;
+  color: #087bb6;
 }
 
-.support button {
+.sso-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.login-footer {
+  width: 100%;
+
+  margin-top: 24px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  color: #6d8fa7;
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.contact-support,
+.create-account {
+  padding: 0;
+
   border: none;
 
   background: transparent;
 
-  color: #0874e8;
+  color: #0788d5;
 
-  font-family: inherit;
-
-  font-size: inherit;
-
-  font-weight: 680;
+  font-size: 13px;
+  font-weight: 800;
 
   cursor: pointer;
 }
 
-.support button:hover {
+.contact-support:hover,
+.create-account:hover {
   text-decoration: underline;
+}
+
+.footer-separator {
+  color: #64839b;
+
+  font-weight: 600;
 }
 
 
 /* =========================================================
    RESPONSIVE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 1200px) {
 
-  .brand-section {
-    width: 51%;
+  .login-content {
+    grid-template-columns: 58% 42%;
   }
 
-  .login-section {
-    width: min(530px, 42vw);
-    right: 3%;
+  .branding-section {
+    padding-left: 2vw;
   }
 
   .login-card {
-    padding-left: 55px;
-    padding-right: 55px;
+    margin-right: 2vw;
+    padding-left: 35px;
+    padding-right: 35px;
   }
 
-  .brand-name {
-    font-size: 58px;
+  .nexverify-logo {
+    width: min(310px, 32vw);
   }
 
-  .brand-subtitle {
-    font-size: 14px;
-    letter-spacing: 5px;
+  .verification-title {
+    letter-spacing: 6px;
   }
-
 }
 
 
 @media (max-width: 900px) {
 
   .login-page {
+    min-height: 100vh;
+    height: auto;
+
     overflow-y: auto;
   }
 
-  .brand-section {
-    position: relative;
+  .login-content {
+    min-height: 100vh;
+    height: auto;
 
-    width: 100%;
-
-    min-height: auto;
+    grid-template-columns: 1fr;
 
     padding:
-      60px 30px 25px;
+      35px
+      20px;
   }
 
-  .brand-content {
-    margin-top: 0;
+  .branding-section {
+    height: auto;
+
+    padding:
+      30px
+      0
+      40px;
   }
 
-  .login-section {
-    position: relative;
-
-    width: min(600px, calc(100% - 40px));
-
-    right: auto;
-
-    top: auto;
-
-    transform: none;
-
-    margin:
-      20px auto 60px;
+  .nexverify-logo {
+    width: 300px;
+    max-width: 70vw;
   }
 
   .login-card {
-    padding:
-      75px 40px 45px;
-  }
+    width: min(580px, 100%);
 
-  .wave-area {
-    height: 350px;
-  }
+    margin:
+      0
+      auto;
 
+    justify-self: center;
+  }
 }
 
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
 
-  .brand-section {
-    padding-top: 45px;
+  .login-content {
+    padding: 20px 12px;
   }
 
-  .brand-logo-img {
-    width: min(240px, 80%);
+  .branding-section {
+    padding:
+      20px
+      0
+      30px;
   }
 
-  .brand-name {
-    font-size: 42px;
-
-    letter-spacing: -2.5px;
+  .nexverify-logo {
+    width: 250px;
   }
 
-  .ai-badge {
-    height: 33px;
-
-    margin-left: 7px;
-
-    padding: 0 9px;
-
-    border-radius: 8px;
-
-    font-size: 17px;
-  }
-
-  .brand-subtitle {
-    margin-top: 15px;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-  }
-
-  .brand-divider {
-    margin-top: 30px;
-  }
-
-  .security-section h3 {
+  .verification-title {
     font-size: 16px;
+    letter-spacing: 4px;
   }
 
-  .security-section p {
-    font-size: 13px;
+  .brand-heading {
+    font-size: 22px;
   }
 
-  .login-section {
-    width: calc(100% - 24px);
-
-    margin-bottom: 30px;
+  .brand-description {
+    font-size: 15px;
   }
 
   .login-card {
+    min-height: auto;
+
     padding:
-      70px 24px 38px;
-
-    border-radius: 22px;
+      22px
+      18px;
   }
 
-  .language-selector {
-    right: 18px;
-    top: 18px;
+  .captcha-row {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
   }
 
-  .form-group label {
-    font-size: 14px;
+  .captcha-display {
+    width: 100%;
   }
 
-  .input-wrapper {
-    height: 56px;
+  .captcha-refresh {
+    justify-content: flex-start;
+
+    height: 30px;
   }
 
-  .options-row {
-    font-size: 12px;
+  .captcha-input-wrapper {
+    height: 55px;
   }
 
-  .forgot-password {
-    font-size: 12px;
+  .login-footer {
+    flex-wrap: wrap;
   }
-
 }

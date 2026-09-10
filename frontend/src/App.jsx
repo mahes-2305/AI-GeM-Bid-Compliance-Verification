@@ -1,16 +1,58 @@
 import { useState } from "react";
+
 import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+import SSOPage from "./components/SSOPage";
 import Dashboard from "./components/Dashboard";
 
-export default function App() {
-  const [isAuthed, setIsAuthed] = useState(false);
+import "./App.css";
 
-  const handleSignIn = (formData) => {
-    // TODO: replace with your real auth API call.
-    // For now, any submit takes you to the dashboard.
-    console.log("Signing in:", formData.identifier);
-    setIsAuthed(true);
+function App() {
+  const [page, setPage] = useState("login");
+
+  const handleLogin = () => {
+    setPage("dashboard");
   };
 
-  return isAuthed ? <Dashboard /> : <LoginPage onSignIn={handleSignIn} />;
+  const handleCreateAccount = () => {
+    setPage("register");
+  };
+
+  const handleSSO = () => {
+    setPage("sso");
+  };
+
+  const handleBackToLogin = () => {
+    setPage("login");
+  };
+
+  if (page === "dashboard") {
+    return <Dashboard />;
+  }
+
+  if (page === "register") {
+    return (
+      <RegisterPage
+        onBack={handleBackToLogin}
+      />
+    );
+  }
+
+  if (page === "sso") {
+    return (
+      <SSOPage
+        onBack={handleBackToLogin}
+      />
+    );
+  }
+
+  return (
+    <LoginPage
+      onLogin={handleLogin}
+      onCreateAccount={handleCreateAccount}
+      onSSO={handleSSO}
+    />
+  );
 }
+
+export default App;

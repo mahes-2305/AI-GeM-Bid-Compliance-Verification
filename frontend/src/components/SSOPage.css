@@ -1,0 +1,710 @@
+/* =========================================================
+   NEXVERIFY AI - SSO PAGE
+========================================================= */
+
+.sso-page {
+  position: relative;
+
+  min-height: 100vh;
+  width: 100%;
+
+  overflow-x: hidden;
+
+  padding: 28px 5.5% 55px;
+
+  background-image: url("../assets/login-bg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  color: #0a4d7d;
+}
+
+.sso-background-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(70, 140, 235, 0.12),
+      rgba(180, 185, 255, 0.07),
+      rgba(255, 180, 235, 0.10)
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   ORBS
+========================================================= */
+
+.sso-orb {
+  position: fixed;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      #ffffff 0%,
+      #dce8ff 18%,
+      #aaaaff 48%,
+      #8759e8 100%
+    );
+
+  box-shadow:
+    0 15px 45px rgba(70, 85, 210, 0.24),
+    inset 0 0 18px rgba(255, 255, 255, 0.65);
+}
+
+.sso-orb-one {
+  width: 58px;
+  height: 58px;
+
+  top: 16%;
+  left: 6%;
+}
+
+.sso-orb-two {
+  width: 32px;
+  height: 32px;
+
+  bottom: 20%;
+  right: 8%;
+}
+
+.sso-orb-three {
+  width: 18px;
+  height: 18px;
+
+  top: 55%;
+  left: 4%;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.sso-topbar {
+  position: relative;
+
+  z-index: 5;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.sso-back-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  height: 52px;
+
+  padding: 0 22px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.82);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.30);
+
+  color: #075a90;
+
+  font-family: inherit;
+
+  font-size: 18px;
+
+  font-weight: 750;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  box-shadow:
+    0 8px 25px rgba(40, 80, 160, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  transition: 0.2s ease;
+}
+
+.sso-back-button:hover {
+  background:
+    rgba(255, 255, 255, 0.52);
+
+  transform: translateY(-1px);
+}
+
+.sso-back-button span {
+  font-size: 25px;
+}
+
+.sso-small-logo {
+  width: 185px;
+
+  height: auto;
+
+  filter:
+    drop-shadow(0 8px 15px rgba(0, 55, 120, 0.18));
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.sso-content {
+  position: relative;
+
+  z-index: 5;
+
+  display: flex;
+
+  justify-content: center;
+
+  padding-top: 12px;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.sso-card {
+  width: min(900px, 100%);
+
+  padding: 38px 55px 32px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.84);
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(224, 240, 255, 0.57),
+      rgba(220, 225, 255, 0.38) 48%,
+      rgba(247, 224, 250, 0.43)
+    );
+
+  box-shadow:
+    0 28px 75px rgba(30, 70, 135, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  backdrop-filter: blur(23px);
+  -webkit-backdrop-filter: blur(23px);
+
+  text-align: center;
+}
+
+/* =========================================================
+   MAIN ICON
+========================================================= */
+
+.sso-main-icon {
+  width: 78px;
+  height: 78px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 21px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #09a9df,
+      #4367ed 50%,
+      #8e20eb
+    );
+
+  color: white;
+
+  box-shadow:
+    0 15px 35px rgba(65, 75, 220, 0.25);
+}
+
+.sso-main-icon svg {
+  width: 45px;
+  height: 45px;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.sso-card h1 {
+  margin: 0;
+
+  color: #07517f;
+
+  font-size: clamp(36px, 4vw, 50px);
+
+  font-weight: 800;
+
+  letter-spacing: -1.5px;
+
+  text-shadow:
+    0 2px 5px rgba(0, 60, 120, 0.16);
+}
+
+.sso-description {
+  max-width: 680px;
+
+  margin: 10px auto 28px;
+
+  color: #4d7498;
+
+  font-size: 18px;
+
+  font-weight: 550;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   SECURITY BANNER
+========================================================= */
+
+.sso-security-banner {
+  width: 100%;
+
+  min-height: 67px;
+
+  margin-bottom: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(170, 226, 255, 0.35),
+      rgba(193, 205, 255, 0.38)
+    );
+
+  color: #08649a;
+
+  font-size: 19px;
+
+  font-weight: 750;
+}
+
+.sso-lock-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.sso-lock-icon svg {
+  width: 29px;
+  height: 29px;
+}
+
+/* =========================================================
+   FIELDS
+========================================================= */
+
+.sso-field {
+  margin-bottom: 20px;
+
+  text-align: left;
+}
+
+.sso-field label,
+.sso-captcha > label {
+  display: block;
+
+  margin: 0 0 9px 2px;
+
+  color: #07568a;
+
+  font-size: 17px;
+
+  font-weight: 750;
+}
+
+.sso-input {
+  width: 100%;
+
+  height: 67px;
+
+  display: flex;
+
+  align-items: center;
+
+  border:
+    1px solid rgba(104, 164, 226, 0.48);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.42);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+
+  transition: 0.2s ease;
+}
+
+.sso-input:focus-within {
+  border-color:
+    rgba(52, 132, 220, 0.75);
+
+  background:
+    rgba(255, 255, 255, 0.58);
+
+  box-shadow:
+    0 0 0 3px rgba(70, 145, 235, 0.10);
+}
+
+.sso-field-icon {
+  width: 65px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #147fbe;
+}
+
+.sso-field-icon svg {
+  width: 27px;
+  height: 27px;
+}
+
+.sso-input input {
+  flex: 1;
+
+  height: 100%;
+
+  min-width: 0;
+
+  padding: 0 18px 0 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #195d8b;
+
+  font-family: inherit;
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+.sso-input input::placeholder {
+  color: #8baeca;
+}
+
+/* =========================================================
+   CAPTCHA
+========================================================= */
+
+.sso-captcha {
+  margin-top: 5px;
+
+  text-align: left;
+}
+
+.sso-captcha-row {
+  display: grid;
+
+  grid-template-columns: 255px 100px 1fr;
+
+  gap: 16px;
+
+  align-items: center;
+}
+
+.sso-captcha-image {
+  height: 67px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(110, 170, 225, 0.50);
+
+  border-radius: 15px;
+
+  background:
+    repeating-linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.92) 0px,
+      rgba(255, 255, 255, 0.92) 3px,
+      rgba(220, 232, 247, 0.92) 4px,
+      rgba(255, 255, 255, 0.92) 7px
+    );
+}
+
+.sso-captcha-image::before,
+.sso-captcha-image::after {
+  content: "";
+
+  position: absolute;
+
+  width: 130%;
+
+  height: 1px;
+
+  background: rgba(50, 80, 120, 0.28);
+}
+
+.sso-captcha-image::before {
+  transform: rotate(-8deg);
+}
+
+.sso-captcha-image::after {
+  transform: rotate(7deg);
+}
+
+.sso-captcha-image span {
+  position: relative;
+
+  z-index: 2;
+
+  color: #273e55;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 28px;
+
+  font-weight: 800;
+
+  letter-spacing: 6px;
+
+  text-decoration: line-through;
+}
+
+.sso-refresh {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  height: 48px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #078fd7;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+.sso-refresh svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sso-refresh:hover {
+  color: #7126e5;
+}
+
+.sso-captcha-input {
+  height: 67px;
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.sso-submit-button {
+  width: 100%;
+
+  height: 68px;
+
+  margin-top: 25px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #08a7dc,
+      #3979eb 50%,
+      #9721e8
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 19px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(67, 88, 220, 0.24);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sso-submit-button:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.04);
+
+  box-shadow:
+    0 13px 30px rgba(67, 88, 220, 0.30);
+}
+
+.sso-submit-button:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.sso-footer-note {
+  margin: 17px 0 0;
+
+  color: #7296b9;
+
+  font-size: 14px;
+
+  font-weight: 550;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .sso-page {
+    padding: 22px 22px 45px;
+  }
+
+  .sso-card {
+    padding: 35px 35px 30px;
+  }
+
+  .sso-captcha-row {
+    grid-template-columns: 210px 90px 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .sso-page {
+    padding: 18px 14px 35px;
+  }
+
+  .sso-small-logo {
+    width: 125px;
+  }
+
+  .sso-back-button {
+    height: 44px;
+    padding: 0 14px;
+    font-size: 14px;
+  }
+
+  .sso-card {
+    padding: 28px 18px 25px;
+    border-radius: 23px;
+  }
+
+  .sso-main-icon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .sso-main-icon svg {
+    width: 37px;
+    height: 37px;
+  }
+
+  .sso-card h1 {
+    font-size: 34px;
+  }
+
+  .sso-description {
+    font-size: 15px;
+  }
+
+  .sso-security-banner {
+    font-size: 15px;
+  }
+
+  .sso-captcha-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sso-refresh {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,14 @@
+# Backend generated files
+GeM/backend/uploads/
+
+# Node dependencies
+node_modules/
+GeM/backend/node_modules/
+nexverify-ai/node_modules/
+
+# Frontend generated/build files
+nexverify-ai/dist/
+
+# Local environment files
+.env
+.env.*

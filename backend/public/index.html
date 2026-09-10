@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SIH-100 | AI GeM Compliance</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <h1>AI GeM Bid Compliance Verification</h1>
+
+      <p class="subtitle">
+        Upload the tender and bidder documents to verify compliance.
+      </p>
+
+      <!-- Tender Document -->
+      <div class="upload-box">
+
+        <h3>Tender Document</h3>
+
+        <label for="tenderInput" class="file-label">
+          Choose Tender Document
+        </label>
+
+        <input
+          type="file"
+          id="tenderInput"
+          accept=".pdf,.jpg,.jpeg,.png"
+        >
+
+        <p id="tenderFileName">
+          No tender document selected
+        </p>
+
+      </div>
+
+      <!-- Bidder Document -->
+      <div class="upload-box">
+
+        <h3>Bidder Document</h3>
+
+        <label for="bidderInput" class="file-label">
+          Choose Bidder Document
+        </label>
+
+        <input
+          type="file"
+          id="bidderInput"
+          accept=".pdf,.jpg,.jpeg,.png"
+        >
+
+        <p id="bidderFileName">
+          No bidder document selected
+        </p>
+
+      </div>
+
+      <button id="uploadButton">
+        Verify Compliance
+      </button>
+
+      <div id="status"></div>
+
+      <div id="result" class="result"></div>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

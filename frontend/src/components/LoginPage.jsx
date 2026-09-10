@@ -1,190 +1,779 @@
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Globe, ChevronDown, ShieldCheck } from "lucide-react";
-import logo from "../assets/nexverify-logo.png";
 import "./LoginPage.css";
 
-const LoginPage = ({ onSignIn }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState({ identifier: "", password: "", remember: false });
+function generateCaptcha() {
+  const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+  let result = "";
+
+  for (let i = 0; i < 5; i++) {
+    result += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+
+  return result;
+}
+
+function LoginPage({ onLogin, onCreateAccount, onSSO }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [captchaError, setCaptchaError] = useState("");
+
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("EN");
+
+  const [captcha, setCaptcha] = useState(generateCaptcha());
+  const [captchaInput, setCaptchaInput] = useState("");
+
+  const languages = [
+    {
+      code: "ENG",
+      label: "English",
+    },
+    {
+      code: "TA",
+      label: "தமிழ்",
+    },
+    {
+      code: "HI",
+      label: "हिंदी",
+    },
+  ];
+
+  /* =========================
+     CAPTCHA
+     ========================= */
+
+  const refreshCaptcha = () => {
+    setCaptcha(generateCaptcha());
+    setCaptchaInput("");
+    setCaptchaError("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSignIn?.(form);
+  /* =========================
+     LANGUAGE
+     ========================= */
+
+  const handleLanguageSelect = (language) => {
+    setSelectedLanguage(language.label);
+    setLanguageOpen(false);
+  };
+
+  /* =========================
+     VALIDATION
+     ========================= */
+
+  const validateForm = () => {
+    let valid = true;
+
+    setEmailError("");
+    setPasswordError("");
+    setCaptchaError("");
+
+    if (!email.trim()) {
+      setEmailError(
+        "Please enter your email or employee ID."
+      );
+      valid = false;
+    }
+
+    if (!password.trim()) {
+      setPasswordError(
+        "Please enter your password."
+      );
+      valid = false;
+    }
+
+    if (!captchaInput.trim()) {
+      setCaptchaError(
+        "Please enter the CAPTCHA code."
+      );
+      valid = false;
+    } else if (
+      captchaInput.trim().toUpperCase() !==
+      captcha.toUpperCase()
+    ) {
+      setCaptchaError(
+        "Invalid CAPTCHA code. Please try again."
+      );
+      valid = false;
+    }
+
+    return valid;
+  };
+
+  /* =========================
+     SIGN IN
+     ========================= */
+
+  const handleSignIn = (event) => {
+    event.preventDefault();
+
+    const valid = validateForm();
+
+    if (!valid) {
+      return;
+    }
+
+    /*
+      Both fields + CAPTCHA are valid.
+      Tell App.jsx to open Dashboard.
+    */
+
+    if (typeof onLogin === "function") {
+      onLogin({
+        email: email.trim(),
+        password,
+        rememberMe,
+      });
+    }
+  };
+
+  /* =========================
+     INPUT HANDLERS
+     ========================= */
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+
+    if (emailError) {
+      setEmailError("");
+    }
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+
+    if (passwordError) {
+      setPasswordError("");
+    }
+  };
+
+  const handleCaptchaChange = (event) => {
+    setCaptchaInput(event.target.value);
+
+    if (captchaError) {
+      setCaptchaError("");
+    }
+  };
+
+  /* =========================
+     OTHER BUTTONS
+     ========================= */
+
+  const handleCreateAccount = () => {
+    if (typeof onCreateAccount === "function") {
+      onCreateAccount();
+    }
+  };
+
+  const handleSSO = () => {
+    if (typeof onSSO === "function") {
+      onSSO();
+    }
   };
 
   return (
     <div className="login-page">
-      {/* ================= BACKGROUND ================= */}
-      <div className="background">
-        <div className="ambient ambient-one" />
-        <div className="ambient ambient-two" />
-        <div className="ambient ambient-three" />
-        <div className="ambient ambient-four" />
 
-        <div className="orbit-container">
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="orbit orbit-three" />
-          <div className="orbit-dot orbit-dot-one" />
-          <div className="orbit-dot orbit-dot-two" />
-        </div>
+      <div className="login-background-overlay"></div>
 
-        <div className="vertical-design">
-          <span /><span /><span />
-        </div>
+      <div className="login-content">
 
-        <div className="dot-grid">
-          {Array.from({ length: 28 }).map((_, i) => (
-            <span key={i} />
-          ))}
-        </div>
+        {/* =====================================
+            LEFT BRANDING
+            ===================================== */}
 
-        <div className="light-streak" />
+        <div className="branding-section">
 
-        <div className="wave-area">
-          <svg className="waves" viewBox="0 0 1536 430" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="waveFlow" x1="0" y1="0" x2="1" y2="0.3">
-                <stop offset="0%" stopColor="#5b8dff" />
-                <stop offset="45%" stopColor="#9b6cf6" />
-                <stop offset="100%" stopColor="#f0a8dc" />
-              </linearGradient>
-            </defs>
-            <path
-              className="wave wave-back"
-              d="M0,180 C300,100 550,260 850,180 C1150,100 1350,240 1536,160"
-            />
-            <path
-              className="wave wave-middle"
-              d="M0,230 C300,150 560,310 860,230 C1160,150 1360,290 1536,210"
-            />
-            <path
-              className="wave wave-purple"
-              d="M0,262 C280,190 520,332 820,255 C1120,178 1340,312 1536,235"
-            />
-            <path
-              className="wave wave-front"
-              d="M0,300 C300,220 560,380 860,300 C1160,220 1360,360 1536,285"
-            />
-            <path
-              className="wave wave-highlight"
-              d="M0,285 C300,205 560,365 860,285 C1160,205 1360,345 1536,270"
-            />
-          </svg>
-        </div>
-      </div>
+          <img
+            src="/src/assets/nexverify-logo.png"
+            alt="NexVerify AI"
+            className="nexverify-logo"
+          />
 
-      {/* ================= BRAND SECTION ================= */}
-      <div className="brand-section">
-        <div className="brand-content">
-          <img src={logo} alt="NexVerify AI" className="brand-logo-img" />
-
-          <p className="brand-subtitle">Verification Platform</p>
-
-          <div className="brand-divider" />
-
-          <div className="security-section">
-            <ShieldCheck className="icon" strokeWidth={1.7} />
-            <h3>Intelligent. Automated. Compliant.</h3>
-            <p>Built for the future of GeM procurement.</p>
+          <div className="verification-title">
+            VERIFICATION PLATFORM
           </div>
+
+          <div className="title-line"></div>
+
+          <div className="security-icon">
+            <svg
+              viewBox="0 0 64 64"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32 5L52 13V28C52 42 43 53 32 59C21 53 12 42 12 28V13L32 5Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinejoin="round"
+              />
+
+              <path
+                d="M22 32L29 39L43 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <h2 className="brand-heading">
+            Intelligent. Automated. Compliant.
+          </h2>
+
+          <p className="brand-description">
+            Built for the future of GeM procurement.
+          </p>
+
         </div>
-      </div>
 
-      {/* ================= LOGIN CARD ================= */}
-      <div className="login-section">
+        {/* =====================================
+            LOGIN CARD
+            ===================================== */}
+
         <div className="login-card">
-          <button type="button" className="language-selector">
-            <Globe className="globe-icon" />
-            EN
-            <ChevronDown className="chevron" />
-          </button>
 
-          <form onSubmit={handleSubmit}>
+          {/* LANGUAGE */}
+
+          <div className="language-wrapper">
+
+            <button
+              type="button"
+              className="language-button"
+              onClick={() =>
+                setLanguageOpen(
+                  (previous) => !previous
+                )
+              }
+              aria-expanded={languageOpen}
+            >
+
+              <span className="globe-icon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+
+                  <path
+                    d="M3 12H21"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+
+                  <path
+                    d="M12 3C9.5 5.5 8.5 8.5 8.5 12C8.5 15.5 9.5 18.5 12 21"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+
+                  <path
+                    d="M12 3C14.5 5.5 15.5 8.5 15.5 12C15.5 15.5 14.5 18.5 12 21"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+                </svg>
+
+              </span>
+
+              <span className="selected-language">
+                {selectedLanguage}
+              </span>
+
+              <span
+                className={`language-arrow ${
+                  languageOpen
+                    ? "language-arrow-open"
+                    : ""
+                }`}
+              >
+                ▾
+              </span>
+
+            </button>
+
+            {languageOpen && (
+              <div className="language-menu">
+
+                {languages.map((language) => (
+                  <button
+                    key={language.code}
+                    type="button"
+                    className={`language-option ${
+                      selectedLanguage === language.label
+                        ? "language-option-active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      handleLanguageSelect(language)
+                    }
+                  >
+                    {language.label}
+                  </button>
+                ))}
+
+              </div>
+            )}
+
+          </div>
+
+          {/* =====================================
+              LOGIN FORM
+              ===================================== */}
+
+          <form
+            className="login-form"
+            onSubmit={handleSignIn}
+            noValidate
+          >
+
+            {/* EMAIL */}
+
             <div className="form-group">
-              <label htmlFor="identifier">Email / Employee ID</label>
-              <div className="input-wrapper">
-                <Mail className="field-icon" />
+
+              <label htmlFor="email">
+                Email / Employee ID
+              </label>
+
+              <div
+                className={`input-wrapper ${
+                  emailError
+                    ? "input-error"
+                    : ""
+                }`}
+              >
+
+                <span className="input-icon">
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="5"
+                      width="18"
+                      height="14"
+                      rx="2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+
+                    <path
+                      d="M4 7L12 13L20 7"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                </span>
+
                 <input
-                  id="identifier"
+                  id="email"
                   type="text"
-                  name="identifier"
-                  value={form.identifier}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={handleEmailChange}
                   placeholder="Enter email or employee ID"
                   autoComplete="username"
                 />
+
               </div>
+
+              {emailError && (
+                <div className="error-message">
+                  {emailError}
+                </div>
+              )}
+
             </div>
 
+            {/* PASSWORD */}
+
             <div className="form-group password-group">
-              <label htmlFor="password">Password</label>
-              <div className="input-wrapper">
-                <Lock className="field-icon" />
+
+              <label htmlFor="password">
+                Password
+              </label>
+
+              <div
+                className={`input-wrapper ${
+                  passwordError
+                    ? "input-error"
+                    : ""
+                }`}
+              >
+
+                <span className="input-icon">
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="5"
+                      y="10"
+                      width="14"
+                      height="10"
+                      rx="2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+
+                    <path
+                      d="M8 10V7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7V10"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+
+                </span>
+
                 <input
                   id="password"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
+                  value={password}
+                  onChange={handlePasswordChange}
                   placeholder="Enter password"
                   autoComplete="current-password"
                 />
+
                 <button
                   type="button"
                   className="password-toggle"
-                  onClick={() => setShowPassword((s) => !s)}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() =>
+                    setShowPassword(
+                      (previous) => !previous
+                    )
+                  }
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
                 >
-                  {showPassword ? <EyeOff className="eye-icon" /> : <Eye className="eye-icon" />}
+
+                  {showPassword ? (
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.5 12C4.7 7.5 8 5.3 12 5.3C16 5.3 19.3 7.5 21.5 12C19.3 16.5 16 18.7 12 18.7C8 18.7 4.7 16.5 2.5 12Z"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                      />
+
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="3"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                      />
+                    </svg>
+
+                  ) : (
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 3L21 21"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+
+                      <path
+                        d="M10.6 5.5C11.1 5.4 11.5 5.3 12 5.3C16 5.3 19.3 7.5 21.5 12C20.7 13.7 19.7 15.1 18.5 16.2"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+
+                      <path
+                        d="M6.2 6.2C4.7 7.5 3.5 9.3 2.5 12C4.7 16.5 8 18.7 12 18.7C13.5 18.7 14.9 18.3 16.1 17.7"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+
+                  )}
+
                 </button>
+
               </div>
+
+              {passwordError && (
+                <div className="error-message">
+                  {passwordError}
+                </div>
+              )}
+
             </div>
 
-            <div className="options-row">
-              <label className="remember">
+            {/* CAPTCHA */}
+
+            <div className="captcha-group">
+
+              <label>
+                Enter CAPTCHA Code
+              </label>
+
+              <div className="captcha-row">
+
+                <div className="captcha-display">
+                  {captcha}
+                </div>
+
+                <button
+                  type="button"
+                  className="captcha-refresh"
+                  onClick={refreshCaptcha}
+                >
+                  ↻
+                  <span>Refresh</span>
+                </button>
+
+                <div
+                  className={`captcha-input-wrapper ${
+                    captchaError
+                      ? "captcha-input-error"
+                      : ""
+                  }`}
+                >
+
+                  <span className="captcha-icon">
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 3L19 6V11.5C19 16.2 16.1 20 12 21C7.9 20 5 16.2 5 11.5V6L12 3Z"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinejoin="round"
+                      />
+
+                      <path
+                        d="M9 12L11 14L15 10"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+
+                  </span>
+
+                  <input
+                    type="text"
+                    value={captchaInput}
+                    onChange={handleCaptchaChange}
+                    placeholder="Enter CAPTCHA code"
+                    maxLength={5}
+                    autoComplete="off"
+                  />
+
+                </div>
+
+              </div>
+
+              {captchaError && (
+                <div className="captcha-error">
+                  {captchaError}
+                </div>
+              )}
+
+            </div>
+
+            {/* REMEMBER + FORGOT */}
+
+            <div className="login-options">
+
+              <label className="remember-option">
+
                 <input
                   type="checkbox"
-                  name="remember"
-                  checked={form.remember}
-                  onChange={handleChange}
+                  checked={rememberMe}
+                  onChange={(event) =>
+                    setRememberMe(
+                      event.target.checked
+                    )
+                  }
                 />
-                <span className="custom-checkbox" />
-                Remember me
+
+                <span className="custom-checkbox"></span>
+
+                <span>
+                  Remember me
+                </span>
+
               </label>
-              <button type="button" className="forgot-password">
+
+              <button
+                type="button"
+                className="forgot-password"
+                onClick={() => {
+                  alert(
+                    "Password recovery will be available here."
+                  );
+                }}
+              >
                 Forgot password?
               </button>
+
             </div>
 
-            <button type="submit" className="sign-in-button">
+            {/* SIGN IN */}
+
+            <button
+              type="submit"
+              className="sign-in-button"
+            >
               Sign In
             </button>
 
+            {/* OR */}
+
             <div className="divider">
-              <span />
-              <strong>or</strong>
-              <span />
+
+              <div className="divider-line"></div>
+
+              <span>or</span>
+
+              <div className="divider-line"></div>
+
             </div>
 
-            <button type="button" className="sso-button">
-              <ShieldCheck className="icon" />
-              Sign in with SSO
+            {/* SSO */}
+
+            <button
+              type="button"
+              className="sso-button"
+              onClick={handleSSO}
+            >
+
+              <span className="sso-icon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 3L19 6V11.5C19 16.2 16.1 20 12 21C7.9 20 5 16.2 5 11.5V6L12 3Z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinejoin="round"
+                  />
+
+                  <path
+                    d="M9 12L11 14L15 10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+
+              </span>
+
+              <span>
+                Sign in with SSO
+              </span>
+
             </button>
+
+            {/* FOOTER */}
+
+            <div className="login-footer">
+
+              <span>
+                Need help?
+              </span>
+
+              <button
+                type="button"
+                className="contact-support"
+                onClick={() => {
+                  alert(
+                    "Please contact your organization administrator."
+                  );
+                }}
+              >
+                Contact Support
+              </button>
+
+              <span className="footer-separator">
+                |
+              </span>
+
+              <button
+                type="button"
+                className="create-account"
+                onClick={handleCreateAccount}
+              >
+                Create account
+              </button>
+
+            </div>
+
           </form>
 
-          <div className="support">
-            Need help? <button type="button">Contact Support</button>
-          </div>
         </div>
+
       </div>
+
     </div>
   );
-};
+}
 
 export default LoginPage;

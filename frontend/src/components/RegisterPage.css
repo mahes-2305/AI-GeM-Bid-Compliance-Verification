@@ -1,0 +1,900 @@
+/* =========================================================
+   NEXVERIFY AI - CREATE ACCOUNT
+========================================================= */
+
+.register-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 28px 5.5% 55px;
+
+  background-image: url("../assets/login-bg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  color: #0b4778;
+}
+
+.register-background-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(80, 150, 240, 0.12),
+      rgba(190, 180, 255, 0.08),
+      rgba(255, 180, 235, 0.08)
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   DECORATIVE ORBS
+========================================================= */
+
+.register-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      #ffffff 0%,
+      #dce8ff 18%,
+      #a9baff 48%,
+      #8857e8 100%
+    );
+
+  box-shadow:
+    0 15px 45px rgba(75, 95, 210, 0.24),
+    inset 0 0 18px rgba(255, 255, 255, 0.65);
+}
+
+.register-orb-one {
+  width: 52px;
+  height: 52px;
+  top: 15%;
+  left: 7%;
+}
+
+.register-orb-two {
+  width: 32px;
+  height: 32px;
+  top: 58%;
+  right: 7%;
+}
+
+.register-orb-three {
+  width: 20px;
+  height: 20px;
+  bottom: 15%;
+  left: 4%;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.register-topbar {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.register-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 52px;
+  padding: 0 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.30);
+
+  color: #07588f;
+
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  box-shadow:
+    0 8px 25px rgba(40, 80, 160, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  transition: 0.2s ease;
+}
+
+.register-back-button:hover {
+  background: rgba(255, 255, 255, 0.52);
+  transform: translateY(-1px);
+}
+
+.back-arrow {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.register-small-logo {
+  width: 185px;
+  height: auto;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 8px 15px rgba(0, 55, 120, 0.18));
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.register-header {
+  position: relative;
+  z-index: 5;
+
+  text-align: center;
+
+  margin-top: 12px;
+}
+
+.register-shield {
+  width: 62px;
+  height: 62px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0ca9df,
+      #4167ee 50%,
+      #8d20eb
+    );
+
+  color: white;
+
+  box-shadow:
+    0 12px 30px rgba(70, 80, 220, 0.25);
+}
+
+.register-shield svg {
+  width: 36px;
+  height: 36px;
+}
+
+.register-header h1 {
+  margin: 0;
+
+  color: #074c7d;
+
+  font-size: clamp(34px, 3vw, 46px);
+  font-weight: 800;
+
+  letter-spacing: -1px;
+
+  text-shadow:
+    0 2px 5px rgba(0, 60, 120, 0.16);
+}
+
+.register-header p {
+  margin: 8px 0 0;
+
+  color: #4d7198;
+
+  font-size: 17px;
+  font-weight: 550;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.registration-progress {
+  position: relative;
+  z-index: 5;
+
+  width: min(900px, 90%);
+
+  margin: 30px auto 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 200px;
+}
+
+.progress-number {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  background: rgba(255, 255, 255, 0.35);
+
+  color: #39729f;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  backdrop-filter: blur(10px);
+}
+
+.progress-item.active .progress-number {
+  color: white;
+
+  border-color: transparent;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0ca9df,
+      #4167ee,
+      #8d20eb
+    );
+
+  box-shadow:
+    0 7px 18px rgba(65, 85, 220, 0.25);
+}
+
+.progress-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.progress-text strong {
+  color: #0a5b91;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.progress-text span {
+  color: #7190ad;
+
+  font-size: 12px;
+}
+
+.progress-line {
+  width: 85px;
+  height: 1px;
+
+  margin: 0 14px;
+
+  background:
+    rgba(80, 130, 180, 0.35);
+}
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.register-card {
+  position: relative;
+  z-index: 5;
+
+  width: min(1100px, 100%);
+
+  margin: 0 auto;
+
+  padding: 32px 40px 30px;
+
+  border-radius: 27px;
+
+  border: 1px solid rgba(255, 255, 255, 0.82);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(224, 240, 255, 0.56),
+      rgba(222, 227, 255, 0.38) 48%,
+      rgba(246, 225, 250, 0.42)
+    );
+
+  box-shadow:
+    0 25px 70px rgba(30, 70, 135, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.register-section-heading {
+  margin-bottom: 23px;
+}
+
+.register-section-heading h2 {
+  margin: 0;
+
+  color: #07588e;
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.register-section-heading p {
+  margin: 5px 0 0;
+
+  color: #6791b8;
+
+  font-size: 15px;
+  font-weight: 550;
+}
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.register-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  column-gap: 25px;
+  row-gap: 18px;
+}
+
+.register-field {
+  width: 100%;
+}
+
+.register-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.register-field label,
+.captcha-section > label {
+  display: block;
+
+  margin: 0 0 8px 1px;
+
+  color: #07568a;
+
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.register-input {
+  width: 100%;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid rgba(104, 164, 226, 0.45);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.42);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.register-input:focus-within {
+  border-color: rgba(55, 135, 225, 0.75);
+
+  background: rgba(255, 255, 255, 0.58);
+
+  box-shadow:
+    0 0 0 3px rgba(75, 145, 235, 0.10);
+}
+
+.field-icon {
+  width: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #1683c8;
+}
+
+.field-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.register-input input,
+.register-input select {
+  flex: 1;
+
+  width: 100%;
+
+  height: 100%;
+
+  padding: 0 14px 0 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #175d8c;
+
+  font-family: inherit;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.register-input input::placeholder {
+  color: #8aabc9;
+  opacity: 1;
+}
+
+.register-input select {
+  cursor: pointer;
+}
+
+.register-input select option {
+  color: #174f78;
+}
+
+/* =========================================================
+   AUTHORIZATION
+========================================================= */
+
+.authorization-checkbox {
+  position: relative;
+
+  min-height: 56px;
+
+  margin-top: 20px;
+
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.25);
+
+  color: #28618b;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.authorization-checkbox input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-register-checkbox {
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(90, 135, 175, 0.55);
+
+  border-radius: 3px;
+
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.authorization-checkbox input:checked
+  + .custom-register-checkbox {
+  border-color: transparent;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0ba8df,
+      #7b2ee9
+    );
+}
+
+.authorization-checkbox input:checked
+  + .custom-register-checkbox::after {
+  content: "";
+
+  display: block;
+
+  width: 6px;
+  height: 11px;
+
+  margin: 3px 0 0 7px;
+
+  border:
+    solid white;
+
+  border-width:
+    0 2px 2px 0;
+
+  transform: rotate(45deg);
+}
+
+/* =========================================================
+   CAPTCHA
+========================================================= */
+
+.captcha-section {
+  margin-top: 18px;
+}
+
+.captcha-row {
+  display: grid;
+
+  grid-template-columns: 235px 100px 1fr;
+
+  gap: 15px;
+
+  align-items: center;
+}
+
+.captcha-image {
+  position: relative;
+
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(120, 175, 225, 0.50);
+
+  border-radius: 12px;
+
+  background:
+    repeating-linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.9) 0px,
+      rgba(255, 255, 255, 0.9) 3px,
+      rgba(220, 232, 247, 0.9) 4px,
+      rgba(255, 255, 255, 0.9) 7px
+    );
+
+  box-shadow:
+    inset 0 1px 5px rgba(70, 120, 180, 0.08);
+}
+
+.captcha-image::before,
+.captcha-image::after {
+  content: "";
+
+  position: absolute;
+
+  width: 130%;
+
+  height: 1px;
+
+  background: rgba(50, 80, 120, 0.25);
+
+  transform: rotate(-7deg);
+}
+
+.captcha-image::after {
+  transform: rotate(8deg);
+}
+
+.captcha-image span {
+  position: relative;
+  z-index: 2;
+
+  color: #273e55;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 23px;
+  font-weight: 800;
+
+  letter-spacing: 5px;
+
+  text-decoration: line-through;
+}
+
+.captcha-refresh {
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #0791d8;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+.captcha-refresh svg {
+  width: 20px;
+  height: 20px;
+}
+
+.captcha-refresh:hover {
+  color: #6b22e5;
+}
+
+.captcha-input {
+  height: 54px;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.primary-register-button {
+  width: 100%;
+  height: 61px;
+
+  margin-top: 20px;
+
+  border: none;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #08a6dd 0%,
+      #367bea 50%,
+      #9821e8 100%
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 9px 22px rgba(67, 88, 220, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary-register-button:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.04);
+
+  box-shadow:
+    0 12px 27px rgba(67, 88, 220, 0.30);
+}
+
+.primary-register-button:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   NOTE
+========================================================= */
+
+.register-bottom-note {
+  max-width: 850px;
+
+  margin: 12px auto 0;
+
+  text-align: center;
+
+  color: #7094b8;
+
+  font-size: 13px;
+  font-weight: 550;
+
+  line-height: 1.45;
+}
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.register-success {
+  margin-top: 18px;
+
+  padding: 15px 18px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  border: 1px solid rgba(64, 150, 220, 0.25);
+
+  border-radius: 13px;
+
+  background: rgba(225, 248, 255, 0.42);
+
+  color: #08669b;
+}
+
+.register-success svg {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+}
+
+.register-success div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.register-success strong {
+  font-size: 14px;
+}
+
+.register-success span {
+  font-size: 13px;
+  color: #6287a8;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .register-page {
+    padding: 22px 22px 45px;
+  }
+
+  .register-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .register-field.full-width {
+    grid-column: auto;
+  }
+
+  .registration-progress {
+    width: 100%;
+  }
+
+  .progress-item {
+    min-width: auto;
+  }
+
+  .progress-text span,
+  .progress-line {
+    display: none;
+  }
+
+  .progress-text strong {
+    font-size: 12px;
+  }
+
+  .captcha-row {
+    grid-template-columns: 200px 90px 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .register-page {
+    padding: 18px 14px 35px;
+  }
+
+  .register-small-logo {
+    width: 125px;
+  }
+
+  .register-back-button {
+    height: 44px;
+    padding: 0 14px;
+    font-size: 14px;
+  }
+
+  .register-header h1 {
+    font-size: 32px;
+  }
+
+  .register-header p {
+    font-size: 14px;
+  }
+
+  .register-shield {
+    width: 54px;
+    height: 54px;
+  }
+
+  .registration-progress {
+    justify-content: space-between;
+  }
+
+  .progress-item {
+    gap: 6px;
+  }
+
+  .progress-number {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .progress-text strong {
+    font-size: 10px;
+  }
+
+  .register-card {
+    padding: 24px 18px;
+    border-radius: 22px;
+  }
+
+  .captcha-row {
+    grid-template-columns: 1fr;
+  }
+
+  .captcha-refresh {
+    justify-content: flex-start;
+  }
+}

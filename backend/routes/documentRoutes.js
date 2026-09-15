@@ -60,7 +60,6 @@ router.get("/test", testDocument);
 router.post(
   "/verify",
   upload.fields([
-    { name: "tenderDocument", maxCount: 1 },
     { name: "bidderDocument", maxCount: 1 }
   ]),
   verifyDocuments

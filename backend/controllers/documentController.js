@@ -90,26 +90,63 @@ const uploadDocument = async (req, res) => {
 
 const verifyDocuments = async (req, res) => {
   try {
-    const tenderFile = req.files?.tenderDocument?.[0];
     const bidderFile = req.files?.bidderDocument?.[0];
 
-    if (!tenderFile || !bidderFile) {
+    if (!bidderFile) {
       return res.status(400).json({
         success: false,
-        message: "Both tender and bidder documents are required"
+        message: "Bidder document is required",
       });
     }
 
-    // Extract tender text
-    let tenderText = "";
+    // Get the tender document saved earlier by the officer
+    const tenderFileName = req.body.tenderFileName;
 
-    if (tenderFile.mimetype.startsWith("image/")) {
-      tenderText = await extractTextFromImage(tenderFile.path);
-    } else {
-      tenderText = await extractTextFromPDF(tenderFile.path);
+    if (!tenderFileName) {
+      return res.status(400).json({
+        success: false,
+        message: "Tender requirement document is required",
+      });
     }
 
-    // Extract bidder text
+    const path = require("path");
+    const fs = require("fs");
+
+    const tenderFilePath = path.join(
+      __dirname,
+      "../uploads",
+      tenderFileName
+    );
+
+    if (!fs.existsSync(tenderFilePath)) {
+      return res.status(404).json({
+        success: false,
+        message: "Tender requirement document not found",
+      });
+    }
+
+    // --------------------------------
+    // Extract tender document text
+    // --------------------------------
+
+    let tenderText = "";
+
+    const tenderExtension = path.extname(tenderFilePath).toLowerCase();
+
+    if (
+      tenderExtension === ".png" ||
+      tenderExtension === ".jpg" ||
+      tenderExtension === ".jpeg"
+    ) {
+      tenderText = await extractTextFromImage(tenderFilePath);
+    } else {
+      tenderText = await extractTextFromPDF(tenderFilePath);
+    }
+
+    // --------------------------------
+    // Extract bidder document text
+    // --------------------------------
+
     let bidderText = "";
 
     if (bidderFile.mimetype.startsWith("image/")) {
@@ -118,33 +155,45 @@ const verifyDocuments = async (req, res) => {
       bidderText = await extractTextFromPDF(bidderFile.path);
     }
 
-    // Extract requirements from tender
+    // --------------------------------
+    // Extract structured information
+    // --------------------------------
+
     const requirements = extractTenderRequirements(tenderText);
 
-    // Extract bidder information
     const extractedData = extractBidData(bidderText);
 
-    // Check compliance
+    // --------------------------------
+    // Run compliance verification
+    // --------------------------------
+
     const complianceResult = checkCompliance(
       extractedData,
       requirements
     );
 
+    // --------------------------------
+    // Send result to frontend
+    // --------------------------------
+
     res.status(200).json({
       success: true,
-      message: "Tender and bidder documents verified successfully",
+
+      message: "Bid verification completed successfully",
 
       tenderDocument: {
-        originalName: tenderFile.originalname
+        fileName: tenderFileName,
       },
 
       bidderDocument: {
-        originalName: bidderFile.originalname
+        originalName: bidderFile.originalname,
       },
 
       requirements,
+
       extractedData,
-      complianceResult
+
+      complianceResult,
     });
 
   } catch (error) {
@@ -153,7 +202,7 @@ const verifyDocuments = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to verify documents",
-      error: error.message
+      error: error.message,
     });
   }
 };

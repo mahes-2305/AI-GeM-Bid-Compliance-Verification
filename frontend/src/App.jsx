@@ -4,13 +4,34 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import SSOPage from "./components/SSOPage";
 import Dashboard from "./components/Dashboard";
+import BidderDashboard from "./components/BidderDashboard";
 
 import "./App.css";
 
 function App() {
   const [page, setPage] = useState("login");
+  const [user, setUser] = useState(null);
 
-  const handleLogin = () => {
+  // Normal login = BIDDER
+  const handleLogin = (formData) => {
+    setUser({
+      role: "bidder",
+      name: "Bidder User",
+      email: formData?.email || "",
+    });
+
+    setPage("bidder");
+  };
+
+  // SSO login = PROCUREMENT OFFICER
+  const handleSSOLogin = (formData) => {
+    setUser({
+      role: "officer",
+      name: "Priya Menon",
+      email: formData?.email || "priya.menon@gov.in",
+      organization: formData?.organization || "Government Procurement Department",
+    });
+
     setPage("dashboard");
   };
 
@@ -24,10 +45,32 @@ function App() {
 
   const handleBackToLogin = () => {
     setPage("login");
+    setUser(null);
   };
 
-  if (page === "dashboard") {
-    return <Dashboard />;
+  const handleLogout = () => {
+    setUser(null);
+    setPage("login");
+  };
+
+  // PROCUREMENT OFFICER
+  if (page === "dashboard" && user?.role === "officer") {
+    return (
+      <Dashboard
+        userName={user.name}
+        onLogout={handleLogout}
+      />
+    );
+  }
+
+  // BIDDER
+  if (page === "bidder" && user?.role === "bidder") {
+    return (
+      <BidderDashboard
+        userName={user.name}
+        onLogout={handleLogout}
+      />
+    );
   }
 
   if (page === "register") {
@@ -42,6 +85,7 @@ function App() {
     return (
       <SSOPage
         onBack={handleBackToLogin}
+        onLogin={handleSSOLogin}
       />
     );
   }

@@ -135,7 +135,7 @@ function RefreshIcon() {
   );
 }
 
-function SSOPage({ onBack }) {
+function SSOPage({ onBack, onLogin }) {
   const [form, setForm] = useState({
     organization: "",
     email: "",
@@ -165,38 +165,41 @@ function SSOPage({ onBack }) {
   };
 
   const handleSSO = (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (!form.organization.trim()) {
-      alert("Please enter your organization.");
-      return;
-    }
+  if (!form.organization.trim()) {
+    alert("Please enter your organization.");
+    return;
+  }
 
-    if (!form.email.trim()) {
-      alert("Please enter your official government email ID.");
-      return;
-    }
+  if (!form.email.trim()) {
+    alert("Please enter your official government email ID.");
+    return;
+  }
 
-    if (!form.employeeId.trim()) {
-      alert("Please enter your employee / officer ID.");
-      return;
-    }
+  if (!form.employeeId.trim()) {
+    alert("Please enter your employee / officer ID.");
+    return;
+  }
 
-    if (!form.captcha.trim()) {
-      alert("Please enter the CAPTCHA code.");
-      return;
-    }
+  if (!form.captcha.trim()) {
+    alert("Please enter the CAPTCHA code.");
+    return;
+  }
 
-    if (form.captcha.toUpperCase() !== captcha.toUpperCase()) {
-      alert("Invalid CAPTCHA code.");
-      return;
-    }
+  if (form.captcha.toUpperCase() !== captcha.toUpperCase()) {
+    alert("Invalid CAPTCHA code.");
+    return;
+  }
 
-    alert(
-      "Your organization SSO authentication process will begin here."
-    );
-  };
-
+  if (typeof onLogin === "function") {
+    onLogin({
+      organization: form.organization.trim(),
+      email: form.email.trim(),
+      employeeId: form.employeeId.trim(),
+    });
+  }
+};
   return (
     <div className="sso-page">
       <div className="sso-background-overlay"></div>

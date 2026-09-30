@@ -30,11 +30,19 @@ function BidderDashboard({ userName = "Bidder User", onLogout }) {
       }
     }
 
-    // Load my submissions
-    try {
-      const subs = JSON.parse(localStorage.getItem("nexverify_submissions") || "[]");
-      setMySubmissions(subs.filter(s => s.bidderName === userName));
-    } catch (err) { }
+    // Load my submissions natively from API
+    const fetchMySubmissions = async () => {
+      try {
+        const res = await fetch("/api/documents/submissions");
+        const data = await res.json();
+        if (res.ok && data.success && Array.isArray(data.submissions)) {
+          setMySubmissions(data.submissions.filter(s => s.bidderName === userName));
+        }
+      } catch (err) {
+        console.error("Failed to load submissions", err);
+      }
+    };
+    fetchMySubmissions();
 
     // Load notifications
     try {
@@ -108,42 +116,25 @@ function BidderDashboard({ userName = "Bidder User", onLogout }) {
       }
 
       setVerificationResult(data);
-      // Save verification result for the procurement officer
-      const submissions = JSON.parse(
-        localStorage.getItem("nexverify_submissions") || "[]"
-      );
+      // Backend automatically saves this securely across sessions, optionally push to local state to refresh UI immediately
+      setMySubmissions(prev => [
+        {
+          id: data.savedRecord?.id || `SUB-${Date.now()}`,
+          bidId: selectedBid.id,
+          bidTitle: selectedBid.title,
+          bidderName: userName,
+          submittedAt: new Date().toISOString(),
+          bidderDocument: documents[0].name,
+          tenderDocument: selectedBid.requirementDocument?.name || "Requirement Document",
+          overallStatus: data.complianceResult?.overallStatus || data.complianceResult?.status || "REVIEW_REQUIRED",
+          complianceResult: data.complianceResult,
+          extractedData: data.extractedData,
+          requirements: data.requirements,
+        },
+        ...prev
+      ]);
 
-      submissions.push({
-        id: `SUB-${Date.now()}`,
-        bidId: selectedBid.id,
-        bidTitle: selectedBid.title,
-        bidderName: userName,
-        submittedAt: new Date().toISOString(),
-
-        bidderDocument: documents[0].name,
-
-        tenderDocument:
-          selectedBid.requirementDocument?.name || "Requirement Document",
-
-        overallStatus:
-          data.complianceResult?.overallStatus ||
-          data.complianceResult?.status ||
-          "REVIEW_REQUIRED",
-
-        complianceResult: data.complianceResult,
-
-        extractedData: data.extractedData,
-
-        requirements: data.requirements,
-      });
-
-      localStorage.setItem(
-        "nexverify_submissions",
-        JSON.stringify(submissions)
-      );
-      setVerificationMessage(
-        "Verification completed successfully."
-      );
+      setVerificationMessage("Verification completed successfully.");
     } catch (error) {
       console.error("Verification error:", error);
 

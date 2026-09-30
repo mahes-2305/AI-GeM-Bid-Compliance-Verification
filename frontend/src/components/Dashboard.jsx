@@ -127,41 +127,26 @@ export default function Dashboard({
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   useEffect(() => {
-    const loadSubmissions = () => {
+    const loadSubmissions = async () => {
       try {
-        const saved = JSON.parse(
-          localStorage.getItem("nexverify_submissions") || "[]"
-        );
-
-        setSubmissions(saved);
+        const res = await fetch("/api/documents/submissions");
+        const data = await res.json();
+        if (res.ok && data.success && Array.isArray(data.submissions)) {
+          setSubmissions(data.submissions);
+        } else {
+          setSubmissions([]);
+        }
       } catch (error) {
-        console.error(
-          "Failed to load submissions:",
-          error
-        );
-
+        console.error("Failed to load submissions:", error);
         setSubmissions([]);
       }
     };
 
     loadSubmissions();
 
-    // Refresh when officer returns to the dashboard
-    const handleStorageChange = () => {
-      loadSubmissions();
-    };
-
-    window.addEventListener(
-      "storage",
-      handleStorageChange
-    );
-
-    return () => {
-      window.removeEventListener(
-        "storage",
-        handleStorageChange
-      );
-    };
+    // Auto refresh occasionally
+    const interval = setInterval(loadSubmissions, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const realQueue = submissions.map((submission) => {
@@ -472,7 +457,7 @@ function SettingsPanel() {
       <div style={{ background: "var(--bg-surface)", borderRadius: "12px", border: "1px solid rgba(0, 0, 0, 0.1)", padding: "24px", maxWidth: "800px" }}>
         {saved && (
           <div style={{ background: "rgba(16, 185, 129, 0.2)", color: "#34d399", padding: "12px 16px", borderRadius: "8px", marginBottom: "20px", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
-             Settings saved successfully.
+            Settings saved successfully.
           </div>
         )}
         <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -517,15 +502,22 @@ function SettingsPanel() {
   );
 }
 function Reports() {
-  const [submissions, setSubmissions] = useState(() => {
-    try {
-      return JSON.parse(
-        localStorage.getItem("nexverify_submissions") || "[]"
-      );
-    } catch {
-      return [];
-    }
-  });
+  const [submissions, setSubmissions] = useState([]);
+
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      try {
+        const res = await fetch("/api/documents/submissions");
+        const data = await res.json();
+        if (res.ok && data.success && Array.isArray(data.submissions)) {
+          setSubmissions(data.submissions);
+        }
+      } catch (err) {
+        console.error("Failed to fetch reports:", err);
+      }
+    };
+    fetchSubmissions();
+  }, []);
 
   const getStatus = (submission) => {
     return (
@@ -1103,12 +1095,16 @@ function Reports() {
 
         <button
           className="reports-refresh"
-          onClick={() => {
-            const saved = JSON.parse(
-              localStorage.getItem("nexverify_submissions") || "[]"
-            );
-
-            setSubmissions(saved);
+          onClick={async () => {
+            try {
+              const res = await fetch("/api/documents/submissions");
+              const data = await res.json();
+              if (res.ok && data.success && Array.isArray(data.submissions)) {
+                setSubmissions(data.submissions);
+              }
+            } catch (err) {
+              console.error(err);
+            }
           }}
         >
           Refresh

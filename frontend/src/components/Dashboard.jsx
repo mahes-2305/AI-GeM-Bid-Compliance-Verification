@@ -242,7 +242,7 @@ export default function Dashboard({
     <div className="db-shell">
       <aside className="db-sidebar">
         <div className="db-logo">
-          <img src="/src/assets/nexverify-logo.png" alt="NexVerify AI" style={{ height: "40px" }} />
+          <img src="/nexverify-logo.png" alt="NexVerify AI" style={{ height: "40px" }} />
           <span className="db-logo-text">NexVerify<em>AI</em></span>
         </div>
 

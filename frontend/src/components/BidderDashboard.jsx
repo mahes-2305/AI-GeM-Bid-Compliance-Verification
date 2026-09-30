@@ -195,7 +195,7 @@ function BidderDashboard({ userName = "Bidder User", onLogout }) {
       {/* SIDEBAR */}
       <aside className="bidder-sidebar">
         <div className="bidder-logo">
-          <img src="/src/assets/nexverify-logo.png" alt="NexVerify AI" style={{ height: "40px" }} />
+          <img src="/nexverify-logo.png" alt="NexVerify AI" style={{ height: "40px" }} />
           <span className="db-logo-text">NexVerify<em>AI</em></span>
         </div>
 

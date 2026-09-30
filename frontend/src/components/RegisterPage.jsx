@@ -206,7 +206,7 @@ function RegisterPage({ onBack }) {
           <span className="back-arrow">←</span> Back to Login
         </button>
         <img
-          src="/src/assets/nexverify-logo.png"
+          src="/nexverify-logo.png"
           alt="NexVerify AI"
           className="register-small-logo"
         />

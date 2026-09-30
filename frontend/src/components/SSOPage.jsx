@@ -283,7 +283,7 @@ function SSOPage({ onBack, onLogin }) {
         {/* LEFT BRANDING - Exact Match with Login Page */}
         <div className="branding-section">
           <img
-            src="/src/assets/nexverify-logo.png"
+            src="/nexverify-logo.png"
             alt="NexVerify AI"
             className="nexverify-logo"
           />

@@ -163,7 +163,7 @@ function LoginPage({ onLogin, onCreateAccount, onSSO }) {
         {/* LEFT BRANDING */}
         <div className="branding-section">
           <img
-            src="/src/assets/nexverify-logo.png"
+            src="/nexverify-logo.png"
             alt="NexVerify AI"
             className="nexverify-logo"
           />

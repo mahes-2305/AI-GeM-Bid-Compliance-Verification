@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const documentRoutes = require("./routes/documentRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -16,7 +17,8 @@ app.use(express.static("public"));
 
 // API routes
 app.use("/api/documents", documentRoutes);
+app.use("/api/auth", authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on http://127.0.0.1:${PORT}`);
 });

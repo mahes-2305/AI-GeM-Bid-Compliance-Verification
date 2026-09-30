@@ -1,11 +1,81 @@
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg-dark: #F8FAFC;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #F1F5F9;
+  --bg-input: #ffffff;
+
+  --border-glass: rgba(0, 0, 0, 0.1);
+  --border-glass-accent: rgba(37, 99, 235, 0.3);
+
+  --primary: #2563eb;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+  --accent: #4f46e5;
+  --accent-cyan: #0891b2;
+
+  --status-pass: #059669;
+  --status-pass-bg: rgba(16, 185, 129, 0.1);
+  --status-pass-border: rgba(16, 185, 129, 0.2);
+
+  --status-warn: #D97706;
+  --status-warn-bg: rgba(245, 158, 11, 0.1);
+  --status-warn-border: rgba(245, 158, 11, 0.2);
+
+  --status-fail: #DC2626;
+  --status-fail-bg: rgba(239, 68, 68, 0.1);
+  --status-fail-border: rgba(239, 68, 68, 0.2);
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.2);
+}
+
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }

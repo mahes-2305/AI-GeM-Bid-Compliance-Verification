@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import GovtTopHeader from "./components/GovtTopHeader";
+import GovtFooter from "./components/GovtFooter";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import SSOPage from "./components/SSOPage";
@@ -12,26 +14,36 @@ function App() {
   const [page, setPage] = useState("login");
   const [user, setUser] = useState(null);
 
-  // Normal login = BIDDER
-  const handleLogin = (formData) => {
-    setUser({
-      role: "bidder",
-      name: "Bidder User",
-      email: formData?.email || "",
-    });
-
-    setPage("bidder");
-  };
-
-  // SSO login = PROCUREMENT OFFICER
-  const handleSSOLogin = (formData) => {
-    setUser({
+  // Authenticated Login (Bidder or Officer)
+  const handleLogin = (authData) => {
+    const authenticatedUser = authData?.user || {
       role: "officer",
       name: "Priya Menon",
-      email: formData?.email || "priya.menon@gov.in",
-      organization: formData?.organization || "Government Procurement Department",
-    });
+      email: authData?.email || "priya.menon@cpcl.gov.in",
+      organization: "Chennai Petroleum Corporation Limited (CPCL / MoPNG)",
+      designation: "Senior Compliance Officer",
+    };
 
+    setUser(authenticatedUser);
+
+    if (authenticatedUser.role === "bidder") {
+      setPage("bidder");
+    } else {
+      setPage("dashboard");
+    }
+  };
+
+  // SSO Login (Procurement Officer)
+  const handleSSOLogin = (authData) => {
+    const ssoUser = authData?.user || {
+      role: "officer",
+      name: "Murthuj",
+      email: authData?.email || "priya.menon@cpcl.gov.in",
+      organization: authData?.organization || "Government Procurement Department",
+      designation: "Chief Procurement Officer",
+    };
+
+    setUser(ssoUser);
     setPage("dashboard");
   };
 
@@ -53,49 +65,55 @@ function App() {
     setPage("login");
   };
 
-  // PROCUREMENT OFFICER
-  if (page === "dashboard" && user?.role === "officer") {
-    return (
-      <Dashboard
-        userName={user.name}
-        onLogout={handleLogout}
-      />
-    );
-  }
-
-  // BIDDER
-  if (page === "bidder" && user?.role === "bidder") {
-    return (
-      <BidderDashboard
-        userName={user.name}
-        onLogout={handleLogout}
-      />
-    );
-  }
-
-  if (page === "register") {
-    return (
-      <RegisterPage
-        onBack={handleBackToLogin}
-      />
-    );
-  }
-
-  if (page === "sso") {
-    return (
-      <SSOPage
-        onBack={handleBackToLogin}
-        onLogin={handleSSOLogin}
-      />
-    );
-  }
-
   return (
-    <LoginPage
-      onLogin={handleLogin}
-      onCreateAccount={handleCreateAccount}
-      onSSO={handleSSO}
-    />
+    <div className="app-main-wrapper" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      {/* GLOBAL PRODUCTION GOVERNMENT TOP HEADER & ACCESSIBILITY BAR */}
+      <GovtTopHeader />
+
+      <div className="app-page-content" style={{ flex: 1 }}>
+        {/* PROCUREMENT OFFICER DASHBOARD */}
+        {page === "dashboard" && user?.role === "officer" && (
+          <Dashboard
+            userName={user.name}
+            userProfile={user}
+            onLogout={handleLogout}
+          />
+        )}
+
+        {/* BIDDER DASHBOARD */}
+        {page === "bidder" && user?.role === "bidder" && (
+          <BidderDashboard
+            userName={user.name}
+            userProfile={user}
+            onLogout={handleLogout}
+          />
+        )}
+
+        {page === "register" && (
+          <RegisterPage
+            onBack={handleBackToLogin}
+          />
+        )}
+
+        {page === "sso" && (
+          <SSOPage
+            onBack={handleBackToLogin}
+            onLogin={handleSSOLogin}
+          />
+        )}
+
+        {page === "login" && (
+          <LoginPage
+            onLogin={handleLogin}
+            onCreateAccount={handleCreateAccount}
+            onSSO={handleSSO}
+          />
+        )}
+      </div>
+
+      {/* GLOBAL PRODUCTION GOVERNMENT FOOTER */}
+      <GovtFooter />
+    </div>
   );
 }
 

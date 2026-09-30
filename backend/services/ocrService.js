@@ -2,21 +2,32 @@ const { createWorker } = require("tesseract.js");
 const fs = require("fs");
 const pdf = require("pdf-parse");
 
-// Extract text from image using OCR
+let sharedWorker = null;
+
+/**
+ * Get or initialize reusable singleton Tesseract worker instance
+ */
+const getWorker = async () => {
+  if (!sharedWorker) {
+    console.log("Initializing persistent Tesseract OCR worker instance...");
+    sharedWorker = await createWorker("eng");
+  }
+  return sharedWorker;
+};
+
+/**
+ * Extract text from image using pooled Tesseract OCR worker
+ */
 const extractTextFromImage = async (imagePath) => {
   try {
-    console.log("Starting image OCR...");
-
-    const worker = await createWorker("eng");
+    console.log(`[OCR SERVICE] Processing image OCR: ${imagePath}`);
+    const worker = await getWorker();
 
     const {
       data: { text }
     } = await worker.recognize(imagePath);
 
-    await worker.terminate();
-
-    console.log("Image OCR completed!");
-
+    console.log(`[OCR SERVICE] Image OCR completed successfully (${text.length} chars extracted).`);
     return text;
   } catch (error) {
     console.error("Image OCR Error:", error.message);
@@ -24,18 +35,24 @@ const extractTextFromImage = async (imagePath) => {
   }
 };
 
-// Extract text directly from PDF
+/**
+ * Extract text directly from PDF with graceful fallback
+ */
 const extractTextFromPDF = async (pdfPath) => {
   try {
-    console.log("Starting PDF text extraction...");
-
+    console.log(`[OCR SERVICE] Parsing PDF document: ${pdfPath}`);
     const pdfBuffer = fs.readFileSync(pdfPath);
-
     const data = await pdf(pdfBuffer);
 
-    console.log("PDF text extraction completed!");
+    let extractedText = data.text ? data.text.trim() : "";
 
-    return data.text;
+    if (extractedText.length < 20) {
+      console.warn("[OCR SERVICE] Low text density detected (scanned PDF image). Providing document metadata.");
+      extractedText += "\n[SCANNED PDF DOCUMENT NOTICE: Optical text layer is image-based.]";
+    }
+
+    console.log(`[OCR SERVICE] PDF text extraction completed (${extractedText.length} chars).`);
+    return extractedText;
   } catch (error) {
     console.error("PDF Extraction Error:", error.message);
     throw error;

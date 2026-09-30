@@ -1,1224 +1,426 @@
 /* =========================================================
-   NEXVERIFY AI - LOGIN PAGE
+   NEXVERIFY AI - REDESIGNED GLASSMORPHIC LOGIN PAGE
    ========================================================= */
 
 .login-page {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
-  overflow: hidden;
-
-  background-image: url("/src/assets/login-bg.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  font-family:
-    "Segoe UI",
-    Inter,
-    Arial,
-    sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-main);
+  overflow-y: auto;
+  padding: 24px;
 }
-
-
-/* =========================================================
-   BACKGROUND
-   ========================================================= */
 
 .login-background-overlay {
   position: absolute;
   inset: 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.03),
-      rgba(255, 255, 255, 0.01)
-    );
-
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
   pointer-events: none;
 }
-
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
 
 .login-content {
   position: relative;
   z-index: 2;
-
   width: 100%;
-  height: 100%;
-
+  max-width: 1100px;
   display: grid;
-  grid-template-columns: 62% 38%;
-
+  grid-template-columns: 1fr 1fr;
   align-items: center;
+  gap: 48px;
 }
 
+@media (max-width: 900px) {
+  .login-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
 
 /* =========================================================
    LEFT BRANDING
    ========================================================= */
 
 .branding-section {
-  width: 100%;
-  height: 100%;
-
   display: flex;
   flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  padding-left: 4vw;
-  padding-bottom: 1vh;
+  align-items: flex-start;
+  text-align: left;
 }
-
-
-/* =========================================================
-   LOGO
-   ========================================================= */
 
 .nexverify-logo {
-  width: min(350px, 34vw);
+  max-width: 220px;
   height: auto;
-
-  object-fit: contain;
-
-  margin-bottom: 26px;
-
-  filter:
-    drop-shadow(0 10px 20px rgba(20, 70, 130, 0.15));
+  margin-bottom: 16px;
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.3));
 }
-
-
-/* =========================================================
-   VERIFICATION PLATFORM
-   ========================================================= */
 
 .verification-title {
-  color: #17577d;
-
-  font-size: clamp(20px, 1.8vw, 29px);
+  color: #818cf8;
+  font-size: 13px;
   font-weight: 800;
-
-  letter-spacing: 8px;
-
-  text-shadow:
-    0 2px 5px rgba(255, 255, 255, 0.85),
-    0 3px 10px rgba(20, 70, 110, 0.18);
-
-  margin-top: 2px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
-
-
-/* =========================================================
-   TITLE LINE
-   ========================================================= */
 
 .title-line {
-  width: 78px;
+  width: 48px;
   height: 4px;
-
-  margin-top: 24px;
-  margin-bottom: 22px;
-
-  border-radius: 10px;
-
-  background: #ffffff;
-
-  box-shadow:
-    0 2px 10px rgba(255, 255, 255, 0.8);
+  background: linear-gradient(90deg, #6366f1, #10b981);
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
-
-
-/* =========================================================
-   SECURITY ICON
-   ========================================================= */
 
 .security-icon {
-  width: 54px;
-  height: 54px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #397cf4;
-
-  margin-bottom: 13px;
-
-  filter:
-    drop-shadow(0 4px 7px rgba(40, 100, 220, 0.25));
+  width: 48px;
+  height: 48px;
+  color: #38bdf8;
+  margin-bottom: 16px;
 }
-
-.security-icon svg {
-  width: 52px;
-  height: 52px;
-}
-
-
-/* =========================================================
-   BRAND HEADING
-   ========================================================= */
 
 .brand-heading {
-  margin: 0;
-
-  color: #063e68;
-
-  font-size: clamp(23px, 2vw, 31px);
+  font-size: 32px;
   font-weight: 800;
-
-  letter-spacing: 0.2px;
-
-  text-shadow:
-    0 2px 4px rgba(255, 255, 255, 0.95),
-    0 3px 8px rgba(20, 60, 100, 0.18);
+  color: var(--text-main)
+  line-height: 1.25;
+  margin-bottom: 12px;
 }
-
-
-/* =========================================================
-   BRAND DESCRIPTION
-   ========================================================= */
 
 .brand-description {
-  margin-top: 12px;
-  margin-bottom: 0;
-
-  color: #17618d;
-
-  font-size: clamp(16px, 1.3vw, 21px);
-  font-weight: 700;
-
-  text-shadow:
-    0 2px 4px rgba(255, 255, 255, 0.95);
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
-
 /* =========================================================
-   LOGIN CARD
+   COMPACT LOGIN CARD
    ========================================================= */
 
 .login-card {
-  position: relative;
-
-  width: min(570px, 88%);
-  min-height: 670px;
-
-  margin-right: 5vw;
-
-  padding: 28px 45px 25px;
-
-  border-radius: 25px;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.72);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.47),
-      rgba(225, 230, 255, 0.32),
-      rgba(242, 220, 255, 0.40)
-    );
-
-  box-shadow:
-    0 25px 60px rgba(49, 88, 150, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75);
-
-  backdrop-filter: blur(17px);
-  -webkit-backdrop-filter: blur(17px);
-
-  justify-self: end;
-
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 460px;
+  padding: 32px 36px;
+  border-radius: 20px;
+  background: var(--bg-surface);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  justify-self: center;
 }
 
-
-/* =========================================================
-   LANGUAGE
-   ========================================================= */
-
 .language-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
   position: relative;
-
-  align-self: flex-end;
-
-  margin-bottom: 31px;
 }
 
 .language-button {
-  height: 43px;
-
-  min-width: 110px;
-
-  padding:
-    0
-    14px;
-
+  height: 34px;
+  padding: 0 12px;
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.85);
-
-  border-radius: 25px;
-
-  background:
-    rgba(255, 255, 255, 0.53);
-
-  color: #095c89;
-
-  font-size: 15px;
-  font-weight: 800;
-
+  gap: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-
-  box-shadow:
-    0 4px 15px rgba(30, 90, 140, 0.10);
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .language-button:hover {
-  background:
-    rgba(255, 255, 255, 0.72);
-
-  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-main)
 }
-
-.globe-icon {
-  width: 19px;
-  height: 19px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.globe-icon svg {
-  width: 19px;
-  height: 19px;
-}
-
-.selected-language {
-  min-width: 27px;
-  text-align: center;
-}
-
-.language-arrow {
-  font-size: 15px;
-
-  transition:
-    transform 0.2s ease;
-}
-
-.language-arrow-open {
-  transform: rotate(180deg);
-}
-
-
-/* =========================================================
-   LANGUAGE MENU
-   ========================================================= */
 
 .language-menu {
   position: absolute;
-
-  top: calc(100% + 8px);
+  top: 100%;
   right: 0;
-
-  min-width: 120px;
-
-  padding: 7px;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.75);
-
-  border-radius: 14px;
-
-  background:
-    rgba(255, 255, 255, 0.90);
-
-  box-shadow:
-    0 15px 35px rgba(35, 70, 120, 0.20);
-
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-
-  z-index: 50;
+  margin-top: 6px;
+  background: #1e293b;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 20;
 }
 
 .language-option {
   width: 100%;
-
-  padding:
-    10px
-    12px;
-
+  padding: 8px 12px;
   border: none;
-  border-radius: 9px;
-
   background: transparent;
-
-  color: #164e73;
-
-  font-size: 14px;
-  font-weight: 700;
-
+  color: var(--text-main);
+  font-size: 12px;
   text-align: left;
-
+  border-radius: 6px;
   cursor: pointer;
 }
 
 .language-option:hover {
-  background:
-    rgba(50, 150, 230, 0.10);
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--text-main)
 }
-
-.language-option-active {
-  background:
-    rgba(50, 150, 230, 0.13);
-
-  color: #087bc1;
-}
-
 
 /* =========================================================
-   FORM
+   FORM ELEMENTS
    ========================================================= */
 
 .login-form {
-  width: 100%;
-
   display: flex;
   flex-direction: column;
-}
-
-
-/* =========================================================
-   FORM GROUP
-   ========================================================= */
-
-.form-group {
-  width: 100%;
-
-  margin-bottom: 24px;
+  gap: 18px;
 }
 
 .form-group label {
   display: block;
-
-  margin-bottom: 10px;
-
-  color: #073f6e;
-
-  font-size: 17px;
-  font-weight: 800;
-
-  text-shadow:
-    0 1px 2px rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
 }
 
-
-/* =========================================================
-   INPUT WRAPPER
-   ========================================================= */
-
 .input-wrapper {
-  position: relative;
-
-  width: 100%;
-  height: 59px;
-
   display: flex;
   align-items: center;
-
-  border:
-    1px solid
-    rgba(135, 178, 220, 0.55);
-
-  border-radius: 14px;
-
-  background:
-    rgba(255, 255, 255, 0.48);
-
-  transition:
-    border 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 0 12px;
+  transition: all 0.2s ease;
 }
 
 .input-wrapper:focus-within {
-  border-color: #269ce8;
-
-  background:
-    rgba(255, 255, 255, 0.58);
-
-  box-shadow:
-    0 0 0 3px rgba(38, 156, 232, 0.10);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  background: rgba(0, 0, 0, 0.1);
 }
-
-.input-wrapper.input-error {
-  border:
-    1.5px solid
-    #ff6d83;
-
-  background:
-    rgba(255, 245, 248, 0.50);
-}
-
-
-/* =========================================================
-   INPUT ICON
-   ========================================================= */
 
 .input-icon {
-  width: 25px;
-  height: 25px;
-
-  margin-left: 17px;
-
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+  margin-right: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  color: #14659c;
-
-  flex-shrink: 0;
 }
-
-.input-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-
-/* =========================================================
-   INPUT
-   ========================================================= */
 
 .input-wrapper input {
   width: 100%;
   height: 100%;
-
-  padding:
-    0
-    15px;
-
+  background: transparent;
   border: none;
   outline: none;
-
-  background: transparent;
-
-  color: #124f7e;
-
-  font-family:
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
-  font-size: 16px;
-  font-weight: 600;
+  color: var(--text-main)
+  font-size: 13px;
 }
 
 .input-wrapper input::placeholder {
-  color: #668baa;
+  color: #64748b;
 }
-
-
-/* =========================================================
-   PASSWORD TOGGLE
-   ========================================================= */
 
 .password-toggle {
-  width: 45px;
-  height: 100%;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+}
 
-  margin-right: 3px;
+/* =========================================================
+   EXPANDED & SPACIALLY BALANCED CAPTCHA
+   ========================================================= */
 
+.captcha-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.captcha-top-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  border: none;
-
-  background: transparent;
-
-  color: #1c77a8;
-
-  cursor: pointer;
-}
-
-.password-toggle svg {
-  width: 22px;
-  height: 22px;
-}
-
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-.error-message {
-  margin-top: 7px;
-  padding-left: 3px;
-
-  color: #e83255;
-
-  font-size: 13px;
-  font-weight: 700;
-
-  line-height: 1.35;
-}
-
-
-/* =========================================================
-   CAPTCHA
-   ========================================================= */
-
-.captcha-group {
-  width: 100%;
-
-  margin-bottom: 22px;
-}
-
-.captcha-group > label {
-  display: block;
-
-  margin-bottom: 9px;
-
-  color: #073f6e;
-
-  font-size: 17px;
-  font-weight: 800;
-}
-
-.captcha-row {
-  width: 100%;
-
-  display: grid;
-
-  grid-template-columns:
-    128px
-    80px
-    1fr;
-
-  align-items: center;
-
-  gap: 10px;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
 .captcha-display {
-  height: 54px;
-
+  flex: 1;
+  height: 44px;
+  background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface));
+  border: 1px dashed rgba(99, 102, 241, 0.4);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border:
-    1px solid
-    rgba(135, 178, 220, 0.55);
-
-  border-radius: 13px;
-
-  background:
-    repeating-linear-gradient(
-      -15deg,
-      rgba(255, 255, 255, 0.80) 0px,
-      rgba(255, 255, 255, 0.80) 2px,
-      rgba(225, 235, 245, 0.75) 3px,
-      rgba(255, 255, 255, 0.80) 5px
-    );
-
-  color: #173c55;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 19px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
   font-weight: 800;
-
-  letter-spacing: 4px;
-
+  letter-spacing: 5px;
+  color: #38bdf8;
   text-decoration: line-through;
-
   user-select: none;
 }
 
 .captcha-refresh {
-  height: 42px;
-
+  height: 44px;
+  padding: 0 14px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: #818cf8;
+  font-size: 12px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  gap: 4px;
-
-  padding: 0;
-
-  border: none;
-
-  background: transparent;
-
-  color: #0788d5;
-
-  font-family:
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
-  font-size: 12px;
-  font-weight: 800;
-
+  gap: 6px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .captcha-refresh:hover {
-  text-decoration: underline;
-}
-
-.captcha-refresh:first-letter {
-  font-size: 19px;
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--text-main)
+  border-color: #6366f1;
 }
 
 .captcha-input-wrapper {
-  position: relative;
-
-  width: 100%;
-  height: 54px;
-
-  display: flex;
-  align-items: center;
-
-  border:
-    1px solid
-    rgba(135, 178, 220, 0.55);
-
-  border-radius: 13px;
-
-  background:
-    rgba(255, 255, 255, 0.43);
-
-  transition:
-    border 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-}
-
-.captcha-input-wrapper:focus-within {
-  border-color: #269ce8;
-
-  background:
-    rgba(255, 255, 255, 0.54);
-
-  box-shadow:
-    0 0 0 3px rgba(38, 156, 232, 0.10);
-}
-
-.captcha-input-wrapper.captcha-input-error {
-  border:
-    1.5px solid
-    #ff6d83;
-
-  background:
-    rgba(255, 245, 248, 0.48);
-}
-
-.captcha-icon {
-  width: 24px;
-  height: 24px;
-
-  margin-left: 15px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #14659c;
-
-  flex-shrink: 0;
-}
-
-.captcha-icon svg {
-  width: 21px;
-  height: 21px;
+  margin-top: 4px;
 }
 
 .captcha-input-wrapper input {
   width: 100%;
-  height: 100%;
-
-  padding:
-    0
-    12px;
-
+  background: transparent;
   border: none;
   outline: none;
-
-  background: transparent;
-
-  color: #124f7e;
-
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.captcha-input-wrapper input::placeholder {
-  color: #668baa;
-}
-
-.captcha-error {
-  margin-top: 7px;
-  padding-left: 3px;
-
-  color: #e83255;
-
+  color: var(--text-main)
   font-size: 13px;
-  font-weight: 700;
-
-  line-height: 1.35;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
 }
 
+.error-message,
+.captcha-error {
+  font-size: 11px;
+  color: #f87171;
+  margin-top: 4px;
+}
 
 /* =========================================================
-   REMEMBER + FORGOT
+   LOGIN OPTIONS & BUTTONS
    ========================================================= */
 
 .login-options {
-  width: 100%;
-
   display: flex;
-
-  align-items: center;
   justify-content: space-between;
-
-  margin-bottom: 21px;
+  align-items: center;
+  font-size: 12px;
 }
 
 .remember-option {
-  position: relative;
-
   display: flex;
   align-items: center;
-
-  gap: 9px;
-
-  color: #164f73;
-
-  font-size: 14px;
-  font-weight: 750;
-
+  gap: 6px;
+  color: var(--text-muted);
   cursor: pointer;
-}
-
-.remember-option input {
-  position: absolute;
-
-  opacity: 0;
-
-  pointer-events: none;
-}
-
-.custom-checkbox {
-  width: 20px;
-  height: 20px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border:
-    1.5px solid
-    rgba(92, 150, 200, 0.65);
-
-  border-radius: 5px;
-
-  background:
-    rgba(255, 255, 255, 0.45);
-}
-
-.remember-option input:checked + .custom-checkbox {
-  background:
-    linear-gradient(
-      135deg,
-      #0da8dd,
-      #7730e8
-    );
-
-  border-color: transparent;
-}
-
-.remember-option input:checked + .custom-checkbox::after {
-  content: "✓";
-
-  color: white;
-
-  font-size: 13px;
-  font-weight: 900;
 }
 
 .forgot-password {
+  background: none;
   border: none;
-
-  background: transparent;
-
-  color: #0788d5;
-
-  font-size: 14px;
-  font-weight: 800;
-
+  color: #818cf8;
+  font-size: 12px;
   cursor: pointer;
 }
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
-
-/* =========================================================
-   SIGN IN BUTTON
-   ========================================================= */
 
 .sign-in-button {
   width: 100%;
-  height: 60px;
-
+  height: 44px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
   border: none;
-
-  border-radius: 14px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #0ca7dc 0%,
-      #367ee7 48%,
-      #9013df 100%
-    );
-
-  color: white;
-
-  font-size: 18px;
-  font-weight: 800;
-
+  border-radius: 10px;
+  color: var(--text-main)
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-
-  box-shadow:
-    0 8px 22px rgba(54, 104, 220, 0.20);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  transition: all 0.2s ease;
 }
 
 .sign-in-button:hover {
   transform: translateY(-1px);
-
-  box-shadow:
-    0 12px 28px rgba(54, 104, 220, 0.28);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
 }
-
-.sign-in-button:active {
-  transform: translateY(0);
-}
-
-
-/* =========================================================
-   DIVIDER
-   ========================================================= */
 
 .divider {
-  width: 100%;
-
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
-  margin:
-    23px
-    0;
+  margin: 4px 0;
 }
 
 .divider-line {
   flex: 1;
-
   height: 1px;
-
-  background:
-    rgba(120, 155, 190, 0.35);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .divider span {
-  color: #6d8fa7;
-
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
 }
-
-
-/* =========================================================
-   SSO BUTTON
-   ========================================================= */
 
 .sso-button {
   width: 100%;
-  height: 58px;
-
+  height: 42px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  gap: 10px;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.80);
-
-  border-radius: 14px;
-
-  background:
-    rgba(255, 255, 255, 0.38);
-
-  color: #09577f;
-
-  font-size: 16px;
-  font-weight: 800;
-
+  gap: 8px;
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .sso-button:hover {
-  background:
-    rgba(255, 255, 255, 0.58);
-
-  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.1);
 }
-
-.sso-icon {
-  width: 22px;
-  height: 22px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #087bb6;
-}
-
-.sso-icon svg {
-  width: 21px;
-  height: 21px;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
 
 .login-footer {
-  width: 100%;
-
-  margin-top: 24px;
-
   display: flex;
-
-  align-items: center;
   justify-content: center;
-
-  gap: 7px;
-
-  color: #6d8fa7;
-
-  font-size: 13px;
-  font-weight: 650;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 10px;
 }
 
-.contact-support,
-.create-account {
-  padding: 0;
-
+.login-footer button {
+  background: none;
   border: none;
-
-  background: transparent;
-
-  color: #0788d5;
-
-  font-size: 13px;
-  font-weight: 800;
-
+  color: #818cf8;
+  font-size: 12px;
   cursor: pointer;
-}
-
-.contact-support:hover,
-.create-account:hover {
-  text-decoration: underline;
-}
-
-.footer-separator {
-  color: #64839b;
-
-  font-weight: 600;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1200px) {
-
-  .login-content {
-    grid-template-columns: 58% 42%;
-  }
-
-  .branding-section {
-    padding-left: 2vw;
-  }
-
-  .login-card {
-    margin-right: 2vw;
-    padding-left: 35px;
-    padding-right: 35px;
-  }
-
-  .nexverify-logo {
-    width: min(310px, 32vw);
-  }
-
-  .verification-title {
-    letter-spacing: 6px;
-  }
-}
-
-
-@media (max-width: 900px) {
-
-  .login-page {
-    min-height: 100vh;
-    height: auto;
-
-    overflow-y: auto;
-  }
-
-  .login-content {
-    min-height: 100vh;
-    height: auto;
-
-    grid-template-columns: 1fr;
-
-    padding:
-      35px
-      20px;
-  }
-
-  .branding-section {
-    height: auto;
-
-    padding:
-      30px
-      0
-      40px;
-  }
-
-  .nexverify-logo {
-    width: 300px;
-    max-width: 70vw;
-  }
-
-  .login-card {
-    width: min(580px, 100%);
-
-    margin:
-      0
-      auto;
-
-    justify-self: center;
-  }
-}
-
-
-@media (max-width: 600px) {
-
-  .login-content {
-    padding: 20px 12px;
-  }
-
-  .branding-section {
-    padding:
-      20px
-      0
-      30px;
-  }
-
-  .nexverify-logo {
-    width: 250px;
-  }
-
-  .verification-title {
-    font-size: 16px;
-    letter-spacing: 4px;
-  }
-
-  .brand-heading {
-    font-size: 22px;
-  }
-
-  .brand-description {
-    font-size: 15px;
-  }
-
-  .login-card {
-    min-height: auto;
-
-    padding:
-      22px
-      18px;
-  }
-
-  .captcha-row {
-    grid-template-columns: 1fr;
-
-    gap: 8px;
-  }
-
-  .captcha-display {
-    width: 100%;
-  }
-
-  .captcha-refresh {
-    justify-content: flex-start;
-
-    height: 30px;
-  }
-
-  .captcha-input-wrapper {
-    height: 55px;
-  }
-
-  .login-footer {
-    flex-wrap: wrap;
-  }
 }

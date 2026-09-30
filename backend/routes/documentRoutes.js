@@ -7,7 +7,9 @@ const router = express.Router();
 const {
   testDocument,
   uploadDocument,
-  verifyDocuments
+  verifyDocuments,
+  getSubmissions,
+  chatWithAI
 } = require("../controllers/documentController");
 
 // Configure storage
@@ -56,20 +58,33 @@ const upload = multer({
 // Test API
 router.get("/test", testDocument);
 
-// Verify tender and bidder documents
-router.post(
-  "/verify",
+// Verify tender and bidder documents with clean error handling
+router.post("/verify", (req, res, next) => {
   upload.fields([
+    { name: "tenderDocument", maxCount: 1 },
     { name: "bidderDocument", maxCount: 1 }
-  ]),
-  verifyDocuments
-);
+  ])(req, res, (err) => {
+    if (err) {
+      console.error("Multer Upload Error on /verify:", err);
+      if (err instanceof multer.MulterError) {
+        return res.status(400).json({
+          success: false,
+          message: `Upload Error (${err.code}): ${err.message}`
+        });
+      }
+      return res.status(400).json({
+        success: false,
+        message: err.message || "File upload failed"
+      });
+    }
+    verifyDocuments(req, res);
+  });
+});
 
 // Upload API
 router.post("/upload", (req, res) => {
   upload.single("document")(req, res, (err) => {
     if (err) {
-      // File too large
       if (err instanceof multer.MulterError) {
         if (err.code === "LIMIT_FILE_SIZE") {
           return res.status(400).json({
@@ -79,41 +94,20 @@ router.post("/upload", (req, res) => {
         }
       }
 
-      // Invalid file type
       return res.status(400).json({
         success: false,
         message: err.message
       });
     }
 
-    router.post("/compare", (req, res) => {
-  upload.fields([
-    { name: "tenderDocument", maxCount: 1 },
-    { name: "bidderDocument", maxCount: 1 }
-  ])(req, res, (err) => {
-    if (err) {
-      if (
-        err instanceof multer.MulterError &&
-        err.code === "LIMIT_FILE_SIZE"
-      ) {
-        return res.status(400).json({
-          success: false,
-          message: "File size must not exceed 10 MB"
-        });
-      }
-
-      return res.status(400).json({
-        success: false,
-        message: err.message
-      });
-    }
-
-    compareDocuments(req, res);
-  });
-});
-
-    // No errors → send request to controller
     uploadDocument(req, res);
   });
 });
+
+// Fetch all stored bid submissions
+router.get("/submissions", getSubmissions);
+
+// AI Chat API
+router.post("/chat", chatWithAI);
+
 module.exports = router;

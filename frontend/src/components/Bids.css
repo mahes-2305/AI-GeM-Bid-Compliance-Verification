@@ -172,7 +172,7 @@
   padding: 9px 13px;
   border-radius: 7px;
   background: #315bea;
-  color: white;
+  color: var(--text-main);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -221,7 +221,7 @@
   border-radius: 8px;
   padding: 11px 15px;
   background: #315bea;
-  color: white;
+  color: var(--text-main);
   font-weight: 600;
   cursor: pointer;
 }

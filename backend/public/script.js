@@ -155,21 +155,21 @@ uploadButton.addEventListener("click", async () => {
     // Overall status
     // --------------------------------
 
-    let overallIcon = "🟢";
+    let overallIcon = "";
 
     if (
       compliance.overallStatus ===
       "NON-COMPLIANT"
     ) {
 
-      overallIcon = "🔴";
+      overallIcon = "";
 
     } else if (
       compliance.overallStatus ===
       "REVIEW_REQUIRED"
     ) {
 
-      overallIcon = "🟡";
+      overallIcon = "";
 
     }
 
@@ -381,7 +381,7 @@ uploadButton.addEventListener("click", async () => {
         compliance.checks
           .map(check => {
 
-            let statusIcon = "⚠️";
+            let statusIcon = "";
 
             let statusText =
               "REVIEW REQUIRED";
@@ -389,14 +389,14 @@ uploadButton.addEventListener("click", async () => {
 
             if (check.status === "PASS") {
 
-              statusIcon = "✅";
+              statusIcon = "";
               statusText = "PASS";
 
             } else if (
               check.status === "FAIL"
             ) {
 
-              statusIcon = "❌";
+              statusIcon = "";
               statusText = "FAIL";
 
             }

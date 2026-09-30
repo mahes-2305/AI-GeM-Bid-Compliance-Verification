@@ -1,0 +1,216 @@
+.cb-container {
+    padding: 28px;
+    background: var(--bg-dark);
+    min-height: 100vh;
+    color: var(--text-main);
+}
+
+.cb-header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 16px;
+}
+
+.cb-pill {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.cb-header h1 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.cb-header p {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.cb-ai-banner {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+    border: 1px solid var(--status-pass-border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.cb-ai-star {
+    font-size: 36px;
+}
+
+.cb-ai-banner h3 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    color: var(--status-pass);
+    margin-bottom: 4px;
+}
+
+.cb-ai-banner p {
+    font-size: 13px;
+    color: var(--text-main);
+}
+
+.cb-table-wrapper {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.cb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.cb-table th {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-glass);
+    vertical-align: top;
+}
+
+.th-winner {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-top: 3px solid var(--status-pass);
+}
+
+.cb-th-id {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+}
+
+.cb-th-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 4px 0 8px;
+}
+
+.cb-rank-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.badge-recommend {
+    background: var(--status-pass-bg);
+    color: var(--status-pass);
+}
+
+.badge-warn {
+    background: var(--status-warn-bg);
+    color: var(--status-warn);
+}
+
+.badge-danger {
+    background: var(--status-fail-bg);
+    color: var(--status-fail);
+}
+
+.cb-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.cb-table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.tag-pass {
+    background: var(--status-pass-bg);
+    color: var(--status-pass);
+}
+
+.tag-fail {
+    background: var(--status-fail-bg);
+    color: var(--status-fail);
+}
+
+.sub-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 3px;
+}
+
+.score-pill {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 6px;
+}
+
+.score-pill.high {
+    background: var(--status-pass-bg);
+    color: var(--status-pass);
+}
+
+.score-pill.mid {
+    background: var(--status-warn-bg);
+    color: var(--status-warn);
+}
+
+.score-pill.low {
+    background: var(--status-fail-bg);
+    color: var(--status-fail);
+}
+
+.tr-actions td {
+    padding: 20px 16px;
+}
+
+.btn-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--status-pass);
+    color: var(--text-main);
+}
+
+.btn-primary:hover {
+    background: #059669;
+}
+
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-main);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.1);
+}

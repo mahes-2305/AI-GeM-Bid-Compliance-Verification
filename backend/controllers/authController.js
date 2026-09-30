@@ -6,9 +6,42 @@
 const { generateSecureOtp, signJwt, verifyJwt } = require("../utils/security");
 const nodemailer = require("nodemailer");
 
-// In-memory storages
+// Persistent authentication storage
+const fs = require("fs");
+const path = require("path");
+
+const DATA_DIR = path.join(__dirname, "../data");
+const USERS_STORE_PATH = path.join(DATA_DIR, "users.json");
+
 const otpStore = new Map();
-const userStore = new Map();
+
+const loadUserStore = () => {
+    try {
+        if (!fs.existsSync(DATA_DIR)) {
+            fs.mkdirSync(DATA_DIR, { recursive: true });
+        }
+        if (!fs.existsSync(USERS_STORE_PATH)) {
+            fs.writeFileSync(USERS_STORE_PATH, JSON.stringify({}, null, 2));
+            return new Map();
+        }
+        const data = fs.readFileSync(USERS_STORE_PATH, "utf-8");
+        return new Map(Object.entries(JSON.parse(data || "{}")));
+    } catch (error) {
+        console.error("[AUTH STORE] Error loading users:", error.message);
+        return new Map();
+    }
+};
+
+const saveUserStore = (userStore) => {
+    try {
+        const users = Object.fromEntries(userStore);
+        fs.writeFileSync(USERS_STORE_PATH, JSON.stringify(users, null, 2));
+    } catch (error) {
+        console.error("[AUTH STORE] Error saving users:", error.message);
+    }
+};
+
+const userStore = loadUserStore();
 
 let etherealTransporter = null;
 async function setupMailer() {
@@ -373,6 +406,7 @@ const register = async (req, res) => {
         };
 
         userStore.set(cleanEmail, registeredUser);
+        saveUserStore(userStore);
 
         // Send OTP verification explicitly mimicking reality
         devSendMail(cleanEmail, otpCode);

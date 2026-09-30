@@ -267,9 +267,6 @@ Net Worth: Positive`;
     currentSubmissions.unshift(newBidRecord);
     writeSubmissionsStore(currentSubmissions);
 
-    // Clean up temp uploads
-    if (bidderFileObj) safeUnlink(bidderFileObj.path);
-    if (directTenderFile) safeUnlink(directTenderFile.path);
 
     res.status(200).json({
       success: true,

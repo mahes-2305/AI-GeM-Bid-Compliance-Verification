@@ -96,7 +96,7 @@ pipeline {
             }
         }
 
-        stage('Test EC2 SSH') {
+        stage('Deploy to EC2') {
     steps {
         script {
             withCredentials([
@@ -106,15 +106,35 @@ pipeline {
                     usernameVariable: 'SSH_USER'
                 )
             ]) {
+
                 sh '''
                     set -e
+
+                    echo "Copying production compose file to EC2..."
+
+                    scp \
+                      -i "$SSH_KEY" \
+                      -o StrictHostKeyChecking=no \
+                      -o UserKnownHostsFile=/dev/null \
+                      docker-compose.prod.yml \
+                      "$SSH_USER@3.110.155.27:/opt/nexverify/docker-compose.prod.yml"
+
+                    echo "Deploying NexVerify on EC2..."
 
                     ssh \
                       -i "$SSH_KEY" \
                       -o StrictHostKeyChecking=no \
                       -o UserKnownHostsFile=/dev/null \
                       "$SSH_USER@3.110.155.27" \
-                      "echo 'Jenkins successfully connected to NexVerify EC2'"
+                      "cd /opt/nexverify && \
+                       echo 'ECR_REGISTRY=399707826475.dkr.ecr.ap-south-1.amazonaws.com' > .env && \
+                       aws ecr get-login-password --region ap-south-1 | \
+                       docker login --username AWS --password-stdin \
+                       399707826475.dkr.ecr.ap-south-1.amazonaws.com && \
+                       docker compose -f docker-compose.prod.yml pull && \
+                       docker compose -f docker-compose.prod.yml up -d"
+
+                    echo "NexVerify deployment completed."
                 '''
             }
         }

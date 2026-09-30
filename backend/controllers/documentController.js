@@ -246,8 +246,19 @@ Net Worth: Positive`;
 
     // Prepare Bid Record for Persistent Store
     const newBidRecord = {
-      id: `BID-${Date.now()}`,
-      bidderName: extractedData.legalEntity || "TechNova Solutions Pvt Ltd",
+      id: `SUB-${Date.now()}`,
+      bidId: req.body.bidId || "GeM/BID/2026",
+      bidTitle: req.body.bidTitle || "Procurement Submission",
+      bidderName: req.body.userName || bidderName || bidderDisplayName || "TechNova Solutions Pvt Ltd",
+      submittedAt: new Date().toISOString(),
+      bidderDocument: bidderDisplayName || "Bidder Document.pdf",
+      tenderDocument: directTenderFile?.originalname || tenderFileName || "GeM Requirement Document",
+      overallStatus: complianceResult.overallStatus,
+      complianceResult: complianceResult,
+      extractedData: extractedData,
+      requirements: requirements,
+
+      // Legacy fields
       tenderId: directTenderFile?.originalname || tenderFileName || "GEM/2026/B/89021",
       submissionDate: new Date().toISOString().split("T")[0],
       status: complianceResult.overallStatus,

@@ -181,11 +181,12 @@ export default function Dashboard({
     const score =
       total > 0
         ? Math.round((passed / total) * 100)
-        : 0;
+        : submission.complianceScore || 0;
 
     const overallStatus =
       submission.overallStatus ||
       result.overallStatus ||
+      submission.status ||
       result.status ||
       "REVIEW_REQUIRED";
 
@@ -198,7 +199,7 @@ export default function Dashboard({
     }
 
     return {
-      id: submission.bidId || "N/A",
+      id: submission.bidId || submission.tenderId || submission.id || "N/A",
       vendor: submission.bidderName || "Bidder User",
       category: submission.bidTitle || "Procurement",
       score,

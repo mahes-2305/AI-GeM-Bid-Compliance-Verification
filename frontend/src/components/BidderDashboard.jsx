@@ -94,6 +94,9 @@ function BidderDashboard({ userName = "Bidder User", onLogout }) {
 
       formData.append("bidderDocument", documents[0]);
       formData.append("tenderFileName", tenderFileName);
+      formData.append("bidId", selectedBid.id || "");
+      formData.append("bidTitle", selectedBid.title || "");
+      formData.append("userName", userName || "");
 
       setVerificationMessage("AI is verifying the bid...");
 

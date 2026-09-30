@@ -96,6 +96,31 @@ pipeline {
             }
         }
 
+        stage('Test EC2 SSH') {
+    steps {
+        script {
+            withCredentials([
+                sshUserPrivateKey(
+                    credentialsId: 'nexverify-ec2-ssh',
+                    keyFileVariable: 'SSH_KEY',
+                    usernameVariable: 'SSH_USER'
+                )
+            ]) {
+                sh '''
+                    set -e
+
+                    ssh \
+                      -i "$SSH_KEY" \
+                      -o StrictHostKeyChecking=no \
+                      -o UserKnownHostsFile=/dev/null \
+                      "$SSH_USER@3.110.155.27" \
+                      "echo 'Jenkins successfully connected to NexVerify EC2'"
+                '''
+            }
+        }
+    }
+}
+
         stage('Cleanup Workspace Images') {
             steps {
                 sh """
